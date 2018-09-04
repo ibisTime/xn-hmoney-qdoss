@@ -33,21 +33,13 @@ const ROUTES = [
     path: '/system/user/role',
     component: asyncComponent(() => import('container/security/user/assign'))
   },
-  {
-    path: '/system/user/pwd_reset',
-    component: asyncComponent(() => import('container/security/user/pwdReset'))
-  },
-  {
-    path: '/system/user/post',
-    component: asyncComponent(() => import('container/security/user/post'))
-  },
 
   //  系统参数
   {
     path: '/system/sysPara',
     component: asyncComponent(() => import('container/security/sysParam/sysParam'))
   },
-  //  系统参数修改
+  //  系统参数修改rjn
   {
     path: '/system/sysPara/addedit',
     component: asyncComponent(() => import('container/security/sysParam-addedit/sysParam-addedit'))
@@ -75,14 +67,6 @@ const ROUTES = [
   {
       path: '/system/node/setMateriallist',
       component: asyncComponent(() => import('container/security/node-setMateriallist/node-setMateriallist'))
-  },
-  {
-    path: '/system/compConstruct',
-    component: asyncComponent(() => import('container/security/compConstruct/compConstruct'))
-  },
-  {
-    path: '/system/post',
-    component: asyncComponent(() => import('container/security/post/post'))
   },
   {
     path: '/public/aboutus_addedit',
@@ -119,6 +103,21 @@ const ROUTES = [
   {
     path: '/general/textParam/addedit',
     component: asyncComponent(() => import('container/general/text-param-addedit/text-param-addedit'))
+  },
+  // 邀请好友
+  {
+    path: '/inviteFriends/inviteFriends',
+    component: asyncComponent(() => import('container/inviteFriends/inviteFriends'))
+  },
+  // 流水查
+  {
+    path: '/accountQuery/water/water',
+    component: asyncComponent(() => import('container/accountQuery/water/water'))
+  },
+  // 流水详情
+  {
+    path: '/accountQuery/water/water-addedit',
+    component: asyncComponent(() => import('container/accountQuery/water/water-addedit'))
   }
 ];
 

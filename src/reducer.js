@@ -14,8 +14,6 @@ import { securityPwdReset } from './redux/security/pwdReset';
 import { securityUserAddEdit } from './redux/security/user-addedit';
 import { securityDataDict } from './redux/security/dataDict';
 import { securityDataDictAddEdit } from './redux/security/dataDict-addedit';
-import { securityCompConstruct } from './redux/security/compConstruct';
-import { securityPost } from './redux/security/post';
 import { securityNode } from './redux/security/node';
 import { securityNodeAddEdit } from './redux/security/node-addedit';
 import { securityNodeSetMateriallist } from './redux/security/node-setMateriallist';
@@ -28,9 +26,17 @@ import { publicNotice } from './redux/public/notice';
 import { publicNoticeAddEdit } from './redux/public/notice-addedit';
 import { generalTextParam } from './redux/general/text-param';
 import { generalTextParamAddEdit } from './redux/general/text-param-addedit';
-
-//
 import { analysisInsuranceAmount } from './redux/analysis/insuranceAmount';
+
+// 邀请好友
+import { inviteFriends } from './redux/inviteFriends/inviteFriends';
+
+// 账户查询
+// 账户查询
+
+// 流水查询 + 详情
+import { accountQueryWater } from './redux/accountQuery/water';
+import { accountQueryWaterAddedit } from './redux/accountQuery/water-addedit';
 
 export default combineReducers({
   user,
@@ -48,8 +54,6 @@ export default combineReducers({
   securityUserAddEdit,
   securityDataDict,
   securityDataDictAddEdit,
-  securityCompConstruct,
-  securityPost,
   securityNode,
   securityNodeAddEdit,
   securityNodeSetMateriallist,
@@ -62,5 +66,8 @@ export default combineReducers({
   publicNoticeAddEdit,
   generalTextParam,
   generalTextParamAddEdit,
-  analysisInsuranceAmount
+  analysisInsuranceAmount,
+  inviteFriends,
+  accountQueryWater,
+  accountQueryWaterAddedit
 });
