@@ -39,7 +39,7 @@ const ROUTES = [
     path: '/system/sysPara',
     component: asyncComponent(() => import('container/security/sysParam/sysParam'))
   },
-  //  系统参数修改rjn
+  //  系统参数修改
   {
     path: '/system/sysPara/addedit',
     component: asyncComponent(() => import('container/security/sysParam-addedit/sysParam-addedit'))
@@ -106,18 +106,38 @@ const ROUTES = [
   },
   // 邀请好友
   {
-    path: '/inviteFriends/inviteFriends',
-    component: asyncComponent(() => import('container/inviteFriends/inviteFriends'))
+    path: '/material/myHref',
+    component: asyncComponent(() => import('container/inviteFriends/material/myHref'))
   },
-  // 流水查
+  // 直推好友
   {
-    path: '/accountQuery/water/water',
-    component: asyncComponent(() => import('container/accountQuery/water/water'))
+    path: '/myFriend/directRecommend',
+    component: asyncComponent(() => import('container/inviteFriends/myFriend/directRecommend'))
   },
-  // 流水详情
+  // 间推好友
   {
-    path: '/accountQuery/water/water-addedit',
-    component: asyncComponent(() => import('container/accountQuery/water/water-addedit'))
+    path: '/myFriend/inDirectRecommend',
+    component: asyncComponent(() => import('container/inviteFriends/myFriend/inDirectRecommend'))
+  },
+  // 佣金明细
+  {
+    path: '/myFriend/direct/edit',
+    component: asyncComponent(() => import('container/inviteFriends/myFriend/directRecommend-addedit'))
+  },
+  // 账户查询 -- 账户查询
+  {
+    path: '/account/account',
+    component: asyncComponent(() => import('container/bonusManagement/account/account'))
+  },
+  // 资金流水
+  {
+    path: '/account/moneyWater',
+    component: asyncComponent(() => import('container/bonusManagement/account/ledger'))
+  },
+  // 账户查询 -- 流水查询
+  {
+    path: '/account/ledger',
+    component: asyncComponent(() => import('container/bonusManagement/account/ledger'))
   }
 ];
 

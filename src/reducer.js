@@ -29,14 +29,23 @@ import { generalTextParamAddEdit } from './redux/general/text-param-addedit';
 import { analysisInsuranceAmount } from './redux/analysis/insuranceAmount';
 
 // 邀请好友
-import { inviteFriends } from './redux/inviteFriends/inviteFriends';
+import { inviteFriendsMyHref } from './redux/inviteFriends/myHref';
 
-// 账户查询
-// 账户查询
+// 直推好友
+import { inviteFriendsDirectRecommend } from './redux/inviteFriends/directRecommend';
 
-// 流水查询 + 详情
-import { accountQueryWater } from './redux/accountQuery/water';
-import { accountQueryWaterAddedit } from './redux/accountQuery/water-addedit';
+// 间推好友
+import { inviteFriendsInDirectRecommend } from './redux/inviteFriends/inDirectRecommend';
+
+// 好友 - 佣金明细
+import { inviteFriendsDirectRecommendAddedit } from './redux/inviteFriends/directRecommend-addedit';
+
+// 账户查询 -- 账户查询
+import { bonusManagementAccount } from './redux/bonusManagement/account';
+
+// 账户查询 -- 流水查询
+import { bonusManagementLedger } from './redux/bonusManagement/ledger';
+// import { accountQueryWaterAddedit } from './redux/accountQuery/water-addedit';
 
 export default combineReducers({
   user,
@@ -67,7 +76,10 @@ export default combineReducers({
   generalTextParam,
   generalTextParamAddEdit,
   analysisInsuranceAmount,
-  inviteFriends,
-  accountQueryWater,
-  accountQueryWaterAddedit
+  inviteFriendsMyHref,
+  inviteFriendsDirectRecommend,
+  inviteFriendsInDirectRecommend,
+  inviteFriendsDirectRecommendAddedit,
+  bonusManagementAccount,
+  bonusManagementLedger
 });

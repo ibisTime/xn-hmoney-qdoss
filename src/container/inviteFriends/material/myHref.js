@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
   Select,
   Button
 } from 'antd';
 import fetch from 'common/js/fetch';
-import './inviteFriends.css';
+import './myHref.css';
 var QRCode = require('qrcode.react');
 
 const Option = Select.Option;
