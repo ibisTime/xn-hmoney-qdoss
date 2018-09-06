@@ -10,17 +10,23 @@
 }
 
 .bg1,.bg2 {
-    width: 200px;
-    height: 300px;
+    width: 300px;
+    height: 400px;
     background: #ccc;
     margin: 20px;
     position: relative;
 }
+/* 
+.bg1 {
+    background: url(../../../images/邀请好友1.png) center center no-repeat;
+    background-image: cover;
+} */
 
 .erweima {
     position: absolute;
     width: 100px;
     height: 100px;
-    left: 50px;
+    left: 50%;
     top: 150px;
+    transform: translateX(-50%);
 }

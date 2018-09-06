@@ -8,12 +8,12 @@ import {
     doFetching,
     cancelFetching,
     setSearchData
-} from '@redux/bonusManagement/ledger';
+} from '@redux/bonusManagement/ledger-addedit';
 import { listWrapper } from 'common/js/build-list';
 
 @listWrapper(
     state => ({
-        ...state.bonusManagementLedger,
+        ...state.bonusManagementLedgerAddedit,
         parentCode: state.menu.subMenuCode
     }),
     {
@@ -21,7 +21,7 @@ import { listWrapper } from 'common/js/build-list';
         cancelFetching, setPagination, setSearchParam, setSearchData
     }
 )
-class Ledger extends React.Component {
+class LedgerAddedit extends React.Component {
     render() {
         const fields = [{
             title: '用户',
@@ -63,16 +63,15 @@ class Ledger extends React.Component {
         return this.props.buildList({
             fields,
             pageCode: 630020,
-            btnEvent: {
-                detail: (selectedRowKeys) => {
-                    this.props.history.push(`/account/ledger/addedit?code=${selectedRowKeys[0]}`);
+            buttons: [{
+                code: 'goBack',
+                name: '返回',
+                handler: () => {
+                    this.props.history.go(-1);
                 }
-                // export: (selectedRowKeys) => {
-                //     this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
-                // }
-            }
+            }]
         });
     }
 }
 
-export default Ledger;
+export default LedgerAddedit;

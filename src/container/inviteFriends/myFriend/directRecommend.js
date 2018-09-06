@@ -25,25 +25,25 @@ class DirectRecommend extends React.Component {
     render() {
         const fields = [{
             title: '用户名',
-            field: 'title',
+            field: 'title1',
             search: true,
             render: (v, d) => {
                 return d.userName + '+' + d.userphone;
             }
         }, {
             title: '注册时间',
-            field: 'title'
+            field: 'title2'
         }, {
             title: '是否认证',
-            field: 'title',
+            field: 'title3',
             type: 'select',
             search: true
         }, {
             title: '交易总额',
-            field: 'title'
+            field: 'title4'
         }, {
             title: '佣金计算',
-            field: 'title',
+            field: 'title5',
             amount: true
         }];
         return this.props.buildList({
@@ -51,13 +51,7 @@ class DirectRecommend extends React.Component {
             pageCode: 630020,
             btnEvent: {
                 commissions: (selectedRowKeys) => {
-                    // if (!selectedRowKeys.length) {
-                    //     showWarnMsg('请选择记录');
-                    // // } else if (selectedRowKeys.length > 1) {
-                    // //     showWarnMsg('请选择一条记录');
-                    // } else {
-                        this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
-                    // }
+                    this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
                 }
             }
         });

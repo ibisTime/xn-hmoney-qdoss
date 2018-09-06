@@ -1,15 +1,9 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {
-  Select,
-  Button
-} from 'antd';
-import fetch from 'common/js/fetch';
+import { Button } from 'antd';
 import './myHref.css';
 var QRCode = require('qrcode.react');
 
-const Option = Select.Option;
 export default class SelectSizesDemo extends React.Component {
   constructor(props) {
     super(props);
@@ -19,9 +13,7 @@ export default class SelectSizesDemo extends React.Component {
       copied: false
     };
   }
-  //  页面加载前调用
-  componentDidMount() {
-  }
+
   click = () => {
     let erweima = document.getElementById('erweima');
     let download = document.getElementById('download');

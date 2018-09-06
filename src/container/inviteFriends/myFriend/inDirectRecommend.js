@@ -9,10 +9,7 @@ import {
     cancelFetching,
     setSearchData
 } from '@redux/inviteFriends/inDirectRecommend';
-import {showWarnMsg, getUserId} from 'common/js/util';
 import {listWrapper} from 'common/js/build-list';
-import { Menu, Dropdown, Button, Icon, message } from 'antd';
-import fetch from 'common/js/fetch';
 
 @listWrapper(
     state => ({
@@ -28,43 +25,37 @@ class InDirectRecommend extends React.Component {
     render() {
         const fields = [{
             title: '用户名',
-            field: 'title',
+            field: 'title1',
             search: true,
             render: (v, d) => {
                 return d.userName;
             }
         }, {
             title: '注册时间',
-            field: 'title'
+            field: 'title2'
         }, {
             title: '推荐人',
-            field: 'title'
+            field: 'title3'
         },
         {
             title: '是否认证',
-            field: 'title',
+            field: 'title4',
             type: 'select',
             search: true
         }, {
             title: '交易总额',
-            field: 'title'
+            field: 'title5'
         }, {
             title: '佣金计算',
-            field: 'title',
+            field: 'title6',
             amount: true
         }];
         return this.props.buildList({
             fields,
-            pageCode: 632725,
+            pageCode: 630020,
             btnEvent: {
-                edit: (selectedRowKeys) => {
-                    if (!selectedRowKeys.length) {
-                        showWarnMsg('请选择记录');
-                    } else if (selectedRowKeys.length > 1) {
-                        showWarnMsg('请选择一条记录');
-                    } else {
-                        this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
-                    }
+                commissions: (selectedRowKeys) => {
+                    this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
                 }
             }
         });

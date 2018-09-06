@@ -33,7 +33,6 @@ const ROUTES = [
     path: '/system/user/role',
     component: asyncComponent(() => import('container/security/user/assign'))
   },
-
   //  系统参数
   {
     path: '/system/sysPara',
@@ -129,6 +128,11 @@ const ROUTES = [
     path: '/account/account',
     component: asyncComponent(() => import('container/bonusManagement/account/account'))
   },
+  // 提币
+  {
+    path: '/account/mentionMoney',
+    component: asyncComponent(() => import('container/bonusManagement/account/mentionMoney/mentionMoney'))
+  },
   // 资金流水
   {
     path: '/account/moneyWater',
@@ -138,6 +142,75 @@ const ROUTES = [
   {
     path: '/account/ledger',
     component: asyncComponent(() => import('container/bonusManagement/account/ledger'))
+  },
+  // 流水查询 -- 详情
+  {
+    path: '/account/ledger/addedit',
+    component: asyncComponent(() => import('container/bonusManagement/account/ledger-addedit'))
+  },
+  // 提成管理 -- 提成概况
+  {
+    path: '/bonus/generalSituation',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/generalSituation/generalSituation'))
+  },
+  // 提成管理 -- 未结算提成
+  {
+    path: '/bonus/anOpenAccountQuery',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/anOpenAccountQuery/anOpenAccountQuery'))
+  },
+  // 未结算提成 -- 详情
+  {
+    path: '/bonus/Query/addedit',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/anOpenAccountQuery/anOpenAccountQuery-addedit'))
+  },
+  // 提成管理 -- 已结算提成
+  {
+    path: '/bonus/settledAccounts',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/settledAccounts/settledAccounts'))
+  },
+  // 已结算提成 -- 详情
+  {
+    path: '/bonus/Accounts/addedit',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/settledAccounts/settledAccounts-addedit'))
+  },
+  // 提成管理 -- 已提现提成
+  {
+    path: '/bonus/alreadyPresented',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/alreadyPresented/alreadyPresented'))
+  },
+  // 已提现提成 -- 详情
+  {
+    path: '/bonus/Presented/addedit',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/alreadyPresented/alreadyPresented-addedit'))
+  },
+  // 未结算查询
+  {
+    path: '/bonus/noSettlement',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/anOpenAccountQuery/anOpenAccountQuery'))
+  },
+  // 已结算查询
+  {
+    path: '/bonus/hasSettled',
+    component: asyncComponent(() => import('container/bonusManagement/bonus/settledAccounts/settledAccounts'))
+  },
+  // 个人中心 -- 支付密码
+  {
+    path: '/user/payPwd',
+    component: asyncComponent(() => import('container/bonusManagement/user/payPwd/payPwd'))
+  },
+  // 个人中心 -- 登陆密码
+  {
+    path: '/user/loginPwd',
+    component: asyncComponent(() => import('container/bonusManagement/user/loginPwd/loginPwd'))
+  },
+  // 个人中心 -- 常用地址
+  {
+    path: '/user/oftenUseAddress',
+    component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress/oftenUseAddress'))
+  },
+  {
+    path: '/user/Address/addedit',
+    component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress/oftenUseAddress-addedit'))
   }
 ];
 

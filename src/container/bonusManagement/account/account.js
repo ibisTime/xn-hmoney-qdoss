@@ -8,11 +8,10 @@ import {
   Button
 } from 'antd';
 import fetch from 'common/js/fetch';
-
+import './account.css';
 const Option = Select.Option;
 const gridStyle = {
   width: '400px'
-  // textAlign: 'center'
 };
 export default class SelectSizesDemo extends React.Component {
   constructor(props) {
@@ -22,7 +21,11 @@ export default class SelectSizesDemo extends React.Component {
     };
   }
 
-  goFlow() {
+  goFlow1() {
+    this.props.history.push(`/account/mentionMoney`);
+  }
+
+  goFlow2() {
     this.props.history.push(`/account/moneyWater`);
   }
 
@@ -32,9 +35,9 @@ export default class SelectSizesDemo extends React.Component {
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col span={6}>
           <Card style={gridStyle}>
-            <p>X币余额：</p>
-            <Button type="primary">提币</Button>
-            <Button type="primary" onClick={() => this.goFlow()}>资金流水</Button>
+            <p className="title">X币余额：</p>
+            <Button type="primary" onClick={() => this.goFlow1()}>提币</Button>
+            <Button type="primary" onClick={() => this.goFlow2()}>资金流水</Button>
             <p>
               <span>未结算X币：</span><span>拉新奖励总额：</span>
             </p>

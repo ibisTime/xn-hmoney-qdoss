@@ -28,24 +28,25 @@ import { generalTextParam } from './redux/general/text-param';
 import { generalTextParamAddEdit } from './redux/general/text-param-addedit';
 import { analysisInsuranceAmount } from './redux/analysis/insuranceAmount';
 
-// 邀请好友
 import { inviteFriendsMyHref } from './redux/inviteFriends/myHref';
-
-// 直推好友
 import { inviteFriendsDirectRecommend } from './redux/inviteFriends/directRecommend';
-
-// 间推好友
 import { inviteFriendsInDirectRecommend } from './redux/inviteFriends/inDirectRecommend';
-
-// 好友 - 佣金明细
 import { inviteFriendsDirectRecommendAddedit } from './redux/inviteFriends/directRecommend-addedit';
-
-// 账户查询 -- 账户查询
 import { bonusManagementAccount } from './redux/bonusManagement/account';
-
-// 账户查询 -- 流水查询
+import { bonusManagementMentionMoney } from './redux/bonusManagement/mentionMoney';
 import { bonusManagementLedger } from './redux/bonusManagement/ledger';
-// import { accountQueryWaterAddedit } from './redux/accountQuery/water-addedit';
+import { bonusManagementLedgerAddedit } from './redux/bonusManagement/ledger-addedit';
+import { bonusManagementGeneralSituation } from './redux/bonusManagement/generalSituation';
+import { bonusManagementAnOpenAccountQuery } from './redux/bonusManagement/anOpenAccountQuery';
+import { bonusManagementSettledAccounts } from './redux/bonusManagement/settledAccounts';
+import { bonusManagementSettledAccountsAddedit } from './redux/bonusManagement/settledAccounts-addedit';
+import { bonusManagementAlreadyPresented } from './redux/bonusManagement/alreadyPresented';
+import { bonusManagementAlreadyPresentedAddedit } from './redux/bonusManagement/alreadyPresented-addedit';
+import { bonusManagementPayPwd } from './redux/bonusManagement/payPwd';
+import { bonusManagementLoginPwd } from './redux/bonusManagement/loginPwd';
+import { bonusManagementOftenUseAddress } from './redux/bonusManagement/oftenUseAddress';
+import { bonusManagementAnOpenAccountQueryAddedit } from './redux/bonusManagement/anOpenAccountQuery-addedit';
+import { bonusManagementOftenUseAddressAddedit } from './redux/bonusManagement/oftenUseAddress-addedit';
 
 export default combineReducers({
   user,
@@ -81,5 +82,18 @@ export default combineReducers({
   inviteFriendsInDirectRecommend,
   inviteFriendsDirectRecommendAddedit,
   bonusManagementAccount,
-  bonusManagementLedger
+  bonusManagementLedger,
+  bonusManagementGeneralSituation,
+  bonusManagementAnOpenAccountQuery,
+  bonusManagementSettledAccounts,
+  bonusManagementAlreadyPresented,
+  bonusManagementPayPwd,
+  bonusManagementLoginPwd,
+  bonusManagementOftenUseAddress,
+  bonusManagementMentionMoney,
+  bonusManagementAnOpenAccountQueryAddedit,
+  bonusManagementLedgerAddedit,
+  bonusManagementSettledAccountsAddedit,
+  bonusManagementAlreadyPresentedAddedit,
+  bonusManagementOftenUseAddressAddedit
 });
