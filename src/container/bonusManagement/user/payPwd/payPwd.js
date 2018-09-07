@@ -26,14 +26,20 @@ class PayPwd extends React.Component {
         super(props);
         this.code = getQueryString('code', this.props.location.search);
         this.view = !!getQueryString('v', this.props.location.search);
-        this.hideStatus = false;
-        this.isUserId = false;
+        this.state = {
+            mobile: ''
+        };
     }
-
+    componentDidMount() {
+        fetch(630067, { userId: getUserId() }).then(data => {
+            this.setState({ mobile: data.mobile });
+        }).catch(() => {});
+    }
     render() {
         const fields = [{
             field: 'title',
             title: '手机号',
+            value: this.state.mobile,
             readonly: true
         }, {
             field: 'type',
@@ -50,20 +56,27 @@ class PayPwd extends React.Component {
         }];
         return this.props.buildDetail({
             fields,
-            // code: this.code,
-            // view: this.view,
-            addCode: 630020
-            // editCode: 632722,
-            // detailCode: 632726,
-            // beforeSubmit: (params) => {
-            //     params.scopePeopleList = [{
-            //         scopeType: params.scopeType,
-            //         peopleCode: params.peopleCode
-            //     }];
-            //     delete params.scopeType;
-            //     delete params.peopleCode;
-            //     return params;
-            // }
+            code: this.code,
+            view: this.view,
+            beforeSubmit: {
+                userId: getUserId()
+            },
+            buttons: [{
+                title: '确认',
+                handler: (param) => {
+                  param.operator = getUserId();
+                  this.props.doFetching();
+                  fetch(630576, param).then(() => {
+                    showSucMsg('操作成功');
+                    this.props.cancelFetching();
+                    setTimeout(() => {
+                      this.props.history.go(-1);
+                    }, 1000);
+                  }).catch(this.props.cancelFetching);
+                },
+                check: true,
+                type: 'primary'
+            }]
         });
     }
 }

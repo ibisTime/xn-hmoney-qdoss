@@ -64,15 +64,7 @@ class SettledAccounts extends React.Component {
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
-            btnEvent: {
-                detail: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/Accounts/addedit?code=${selectedRowKeys[0]}`);
-                }
-                // export: (selectedRowKeys) => {
-                //     this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
-                // }
-            }
+            pageCode: 630020
         });
     }
 }

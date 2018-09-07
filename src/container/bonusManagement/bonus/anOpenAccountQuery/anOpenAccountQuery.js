@@ -1,26 +1,25 @@
 import React from 'react';
 import {
-    setTableData,
-    setPagination,
-    setBtnList,
-    setSearchParam,
-    clearSearchParam,
-    doFetching,
-    cancelFetching,
-    setSearchData
+  setTableData,
+  setPagination,
+  setBtnList,
+  setSearchParam,
+  clearSearchParam,
+  doFetching,
+  cancelFetching,
+  setSearchData
 } from '@redux/bonusManagement/anOpenAccountQuery';
-import {showWarnMsg, getUserId} from 'common/js/util';
-import {listWrapper} from 'common/js/build-list';
+import { listWrapper } from 'common/js/build-list';
 
 @listWrapper(
-    state => ({
-        ...state.bonusManagementAnOpenAccountQuery,
-        parentCode: state.menu.subMenuCode
-    }),
-    {
-        setTableData, clearSearchParam, doFetching, setBtnList,
-        cancelFetching, setPagination, setSearchParam, setSearchData
-    }
+  state => ({
+    ...state.bonusManagementAnOpenAccountQuery,
+    parentCode: state.menu.subMenuCode
+  }),
+  {
+    setTableData, clearSearchParam, doFetching, setBtnList,
+    cancelFetching, setPagination, setSearchParam, setSearchData
+  }
 )
 class AnOpenAccountQuery extends React.Component {
     render() {
@@ -50,15 +49,7 @@ class AnOpenAccountQuery extends React.Component {
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
-            btnEvent: {
-                detail: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/Query/addedit?code=${selectedRowKeys[0]}`);
-                }
-                // export: (selectedRowKeys) => {
-                //     this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
-                // }
-            }
+            pageCode: 630020
         });
     }
 }

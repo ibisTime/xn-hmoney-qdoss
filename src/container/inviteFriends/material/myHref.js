@@ -40,16 +40,16 @@ export default class SelectSizesDemo extends React.Component {
         <div className="main">
           <div className="qr">
             <div className="bg1">
-                <div className="erweima" id="erweima">
-                  <QRCode size={100} value={this.state.name}/>
+                <div className="erweima ewm1" id="erweima">
+                  <QRCode size={182} value={this.state.name}/>
                 </div>
             </div>
             <Button type="primary">下载</Button>
           </div>
           <div className="qr">
             <div className="bg2">
-                <div className="erweima" id="erweima">
-                  <QRCode size={100} value={this.state.name}/>
+                <div className="erweima ewm2" id="erweima">
+                  <QRCode size={105} value={this.state.name}/>
                 </div>
             </div>
             <Button type="primary">下载</Button>

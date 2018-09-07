@@ -32,15 +32,7 @@ class OftenUseAddress extends React.Component {
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
-            btnEvent: {
-                // add: (selectedRowKeys) => {
-                //     this.props.history.push(`/user/Address/addedit?code=${selectedRowKeys[0]}`);
-                // },
-                edit: (selectedRowKeys) => {
-                    this.props.history.push(`/user/Address/addedit?code=${selectedRowKeys[0]}`);
-                }
-            }
+            pageCode: 630020
         });
     }
 }

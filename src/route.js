@@ -209,7 +209,7 @@ const ROUTES = [
     component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress/oftenUseAddress'))
   },
   {
-    path: '/user/Address/addedit',
+    path: '/user/oftenUseAddress/addedit',
     component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress/oftenUseAddress-addedit'))
   }
 ];

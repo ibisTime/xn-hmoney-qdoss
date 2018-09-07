@@ -1,5 +1,5 @@
 .txt {
-    width: 500px;
+    width: 550px;
     border: none;
     margin-left: 20px;
 }
@@ -11,22 +11,32 @@
 
 .bg1,.bg2 {
     width: 300px;
-    height: 400px;
+    height: 500px;
     background: #ccc;
     margin: 20px;
     position: relative;
 }
-/* 
+
 .bg1 {
     background: url(../../../images/邀请好友1.png) center center no-repeat;
-    background-image: cover;
-} */
+    background-size: 100% 100%;
+}
+
+.bg2 {
+    background: url(../../../images/邀请有礼-截图@1x.png) center center no-repeat;
+    background-size: 100% 100%;
+}
 
 .erweima {
     position: absolute;
-    width: 100px;
-    height: 100px;
     left: 50%;
-    top: 150px;
     transform: translateX(-50%);
+}
+
+.ewm1 {
+    top: 244px;
+}
+
+.ewm2 {
+    top: 305px;
 }

@@ -63,15 +63,7 @@ class AlreadyPresented extends React.Component {
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
-            btnEvent: {
-                detail: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/Presented/addedit?code=${selectedRowKeys[0]}`);
-                }
-                // export: (selectedRowKeys) => {
-                //     this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
-                // }
-            }
+            pageCode: 630020
         });
     }
 }

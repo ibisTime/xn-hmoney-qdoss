@@ -1,74 +1,77 @@
 import React from 'react';
 import {
-    setTableData,
-    setPagination,
-    setBtnList,
-    setSearchParam,
-    clearSearchParam,
+    initStates,
     doFetching,
     cancelFetching,
-    setSearchData
+    setSelectData,
+    setPageData,
+    restore
 } from '@redux/bonusManagement/alreadyPresented-addedit';
-import {showWarnMsg, getUserId} from 'common/js/util';
-import {listWrapper} from 'common/js/build-list';
+import {
+    DetailWrapper
+} from 'common/js/build-detail';
 
-@listWrapper(
-    state => ({
-        ...state.bonusManagementAlreadyPresentedAddedit,
-        parentCode: state.menu.subMenuCode
-    }),
-    {
-        setTableData, clearSearchParam, doFetching, setBtnList,
-        cancelFetching, setPagination, setSearchParam, setSearchData
+@DetailWrapper(
+    state => state.bonusManagementAlreadyPresentedAddedit, {
+        initStates,
+        doFetching,
+        cancelFetching,
+        setSelectData,
+        setPageData,
+        restore
     }
 )
 class PresentedAddedit extends React.Component {
     render() {
         const fields = [{
-            title: '渠道',
-            type: 'select',
-            field: '渠道',
-            search: true,
-            noVisible: true
-        }, {
-            title: '业务类型',
-            type: 'select',
-            field: '业务类型',
-            search: true,
-            noVisible: true
-        }, {
-            title: '状态',
-            type: 'select',
-            field: '状态',
-            search: true,
-            noVisible: true
+            title: '用户',
+            field: '用户',
+            readonly: true
         }, {
             title: '提成项',
-            field: 'title2'
+            field: 'title2',
+            readonly: true
         }, {
             title: '提成项说明',
-            field: 'title3'
+            field: 'title3',
+            readonly: true
         }, {
             title: '提成金额',
-            field: 'title4'
+            field: 'title4',
+            readonly: true
         }, {
             title: '发生时间',
-            field: 'title5'
+            field: '申请时间',
+            readonly: true,
+            type: 'date',
+            rangedate: ['applyDatetimeStart', 'applyDatetimeEnd'],
+            render: (v, d) => {
+                return d.dateTimeFormat;
+            }
+        }, {
+            title: '状态',
+            field: 'title5',
+            type: 'select',
+            readonly: true
+        }, {
+            title: '结算人',
+            field: 'title5',
+            readonly: true
         }, {
             title: '结算时间',
-            field: 'title6'
+            field: 'title5',
+            readonly: true
         }, {
-            title: '领取时间',
-            field: 'title7'
+            title: '结算说明',
+            field: 'title6',
+            readonly: true
         }];
-        return this.props.buildList({
+        return this.props.buildDetail({
             fields,
-            pageCode: 630020,
             buttons: [{
-                code: 'goBack',
-                name: '返回',
-                handler: () => {
-                    this.props.history.go(-1);
+                title: '返回',
+                handler: (param) => {
+                  this.props.history.go(-1);
                 }
             }]
         });

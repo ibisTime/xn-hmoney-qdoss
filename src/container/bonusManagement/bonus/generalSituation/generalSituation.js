@@ -47,10 +47,10 @@ class GeneralSituation extends React.Component {
             pageCode: 630020,
             btnEvent: {
                 anOpenAccountQuery: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/noSettlement?code=${selectedRowKeys[0]}`);
+                    this.props.history.push(`/bonus/anOpenAccountQuery?code=${selectedRowKeys[0]}`);
                 },
                 settleAccount: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/hasSettled?code=${selectedRowKeys[0]}`);
+                    this.props.history.push(`/bonus/settledAccounts?code=${selectedRowKeys[0]}`);
                 }
             }
         });
