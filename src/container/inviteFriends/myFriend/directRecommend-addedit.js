@@ -9,7 +9,6 @@ import {
     cancelFetching,
     setSearchData
 } from '@redux/inviteFriends/directRecommend-addedit';
-import {showWarnMsg, getUserId} from 'common/js/util';
 import {listWrapper} from 'common/js/build-list';
 
 @listWrapper(

@@ -196,21 +196,21 @@ const ROUTES = [
   // 个人中心 -- 支付密码
   {
     path: '/user/payPwd',
-    component: asyncComponent(() => import('container/bonusManagement/user/payPwd/payPwd'))
+    component: asyncComponent(() => import('container/bonusManagement/user/payPwd'))
   },
   // 个人中心 -- 登陆密码
   {
     path: '/user/loginPwd',
-    component: asyncComponent(() => import('container/bonusManagement/user/loginPwd/loginPwd'))
+    component: asyncComponent(() => import('container/bonusManagement/user/loginPwd'))
   },
   // 个人中心 -- 常用地址
   {
     path: '/user/oftenUseAddress',
-    component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress/oftenUseAddress'))
+    component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress'))
   },
   {
     path: '/user/oftenUseAddress/addedit',
-    component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress/oftenUseAddress-addedit'))
+    component: asyncComponent(() => import('container/bonusManagement/user/oftenUseAddress-addedit'))
   }
 ];
 

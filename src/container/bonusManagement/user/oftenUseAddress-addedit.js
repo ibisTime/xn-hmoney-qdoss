@@ -8,9 +8,7 @@ import {
     restore
 } from '@redux/bonusManagement/oftenUseAddress-addedit';
 import { getQueryString } from 'common/js/util';
-import {
-    DetailWrapper
-} from 'common/js/build-detail';
+import { DetailWrapper } from 'common/js/build-detail';
 
 @DetailWrapper(
     state => state.bonusManagementOftenUseAddressAddedit, {

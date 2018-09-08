@@ -9,8 +9,7 @@ import {
     cancelFetching,
     setSearchData
 } from '@redux/bonusManagement/alreadyPresented';
-import {showWarnMsg, getUserId} from 'common/js/util';
-import {listWrapper} from 'common/js/build-list';
+import { listWrapper } from 'common/js/build-list';
 
 @listWrapper(
     state => ({

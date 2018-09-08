@@ -7,9 +7,7 @@ import {
     setPageData,
     restore
 } from '@redux/bonusManagement/alreadyPresented-addedit';
-import {
-    DetailWrapper
-} from 'common/js/build-detail';
+import { DetailWrapper } from 'common/js/build-detail';
 
 @DetailWrapper(
     state => state.bonusManagementAlreadyPresentedAddedit, {

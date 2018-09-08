@@ -1,5 +1,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import html2canvas from 'html2canvas';
 import { Button } from 'antd';
 import './myHref.css';
 var QRCode = require('qrcode.react');
@@ -14,13 +15,13 @@ export default class SelectSizesDemo extends React.Component {
     };
   }
 
-  click = () => {
-    let erweima = document.getElementById('erweima');
-    let download = document.getElementById('download');
-    let canvas = erweima.getElementsByTagName('canvas')[0];
-    var url = canvas.toDataURL('image/jpeg');
-    download.setAttribute('href', url);
-    download.click();
+  download(idx) {
+    html2canvas(this['bg' + idx]).then((canvas) => {
+      let down = document.getElementById('down');
+      var url = canvas.toDataURL('image/png');
+      down.setAttribute('href', url);
+      down.click();
+    });
   }
 
   render() {
@@ -39,20 +40,22 @@ export default class SelectSizesDemo extends React.Component {
         </div>
         <div className="main">
           <div className="qr">
-            <div className="bg1">
-                <div className="erweima ewm1" id="erweima">
-                  <QRCode size={182} value={this.state.name}/>
-                </div>
+            <div className="bg1" ref={bg0 => this.bg0 = bg0}>
+              <div className="erweima ewm1" id="erweima">
+                <QRCode size={183} value={this.state.name}/>
+              </div>
             </div>
-            <Button type="primary">下载</Button>
+            <a id="down" download="bg1"></a>
+            <Button type="primary" onClick={() => this.download(0)}>下载</Button>
           </div>
           <div className="qr">
-            <div className="bg2">
-                <div className="erweima ewm2" id="erweima">
-                  <QRCode size={105} value={this.state.name}/>
-                </div>
+            <div className="bg2" ref={bg1 => this.bg1 = bg1}>
+              <div className="erweima ewm2" id="erweima">
+                <QRCode size={115} value={this.state.name}/>
+              </div>
             </div>
-            <Button type="primary">下载</Button>
+            <a id="down" download="bg2"></a>
+            <Button type="primary" onClick={() => this.download(1)}>下载</Button>
           </div>
         </div>
       </div>

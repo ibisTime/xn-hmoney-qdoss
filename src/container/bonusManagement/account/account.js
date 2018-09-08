@@ -1,15 +1,6 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import {
-  Select,
-  Row,
-  Col,
-  Card,
-  Button
-} from 'antd';
-import fetch from 'common/js/fetch';
+import { Row, Col, Card, Button } from 'antd';
 import './account.css';
-const Option = Select.Option;
 const gridStyle = {
   width: '400px'
 };
