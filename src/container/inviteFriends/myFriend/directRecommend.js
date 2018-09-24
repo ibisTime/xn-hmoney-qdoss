@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/inviteFriends/directRecommend';
 import {listWrapper} from 'common/js/build-list';
+import {getUserId, moneyFormat} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -24,13 +25,6 @@ import {listWrapper} from 'common/js/build-list';
 class DirectRecommend extends React.Component {
     render() {
         const fields = [{
-            title: '用户名',
-            field: 'title1',
-            search: true,
-            render: (v, d) => {
-                return d.userName + '+' + d.userphone;
-            }
-        }, {
             title: '注册时间',
             field: 'title2'
         }, {
@@ -40,18 +34,33 @@ class DirectRecommend extends React.Component {
             search: true
         }, {
             title: '交易总额',
-            field: 'title4'
+            field: 'tradeCount',
+            render: (v, data) => {
+                return moneyFormat(v, '', 'X');
+            }
         }, {
-            title: '佣金计算',
-            field: 'title5',
-            amount: true
+            title: '交易佣金',
+            field: 'tradeAwardCount',
+            render: (v, data) => {
+                return moneyFormat(v, '', 'X');
+            }
+        }, {
+            title: '注册佣金',
+            field: 'regAwardCount',
+            render: (v, data) => {
+                return moneyFormat(v, '', 'X');
+            }
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
+            rowKey: 'userId',
+            pageCode: 802399,
+            searchParams: {
+                userId: getUserId()
+            },
             btnEvent: {
                 commissions: (selectedRowKeys) => {
-                    this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
+                    this.props.history.push(`/myFriend/directRecommend/commissions?userId=${selectedRowKeys[0]}`);
                 }
             }
         });

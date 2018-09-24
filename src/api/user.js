@@ -32,8 +32,8 @@ export function getUser() {
 }
 
 // 获取用户详情
-export function getUserById(userId) {
-  return fetch(630067, { userId });
+export function getUserById({ userId }) {
+  return fetch(805121, { userId });
 }
 
 // 列表查询平台用户

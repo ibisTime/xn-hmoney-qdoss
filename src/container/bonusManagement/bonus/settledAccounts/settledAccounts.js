@@ -63,7 +63,7 @@ class SettledAccounts extends React.Component {
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020
+            pageCode: 802395
         });
     }
 }

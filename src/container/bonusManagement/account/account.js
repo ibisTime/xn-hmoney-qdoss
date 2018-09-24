@@ -1,47 +1,74 @@
 import React from 'react';
-import { Row, Col, Card, Button } from 'antd';
-import './account.css';
-const gridStyle = {
-  width: '400px'
-};
-export default class SelectSizesDemo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'X币余额：'
-    };
-  }
+import {connect} from 'react-redux';
+import {Card, Row, Col, Button, Spin} from 'antd';
+import {initData} from '@redux/bonusManagement/account';
+import {moneyFormat} from 'common/js/util';
 
-  goFlow1() {
-    this.props.history.push(`/account/mentionMoney`);
-  }
+const {Meta} = Card;
 
-  goFlow2() {
-    this.props.history.push(`/account/moneyWater`);
-  }
+@connect(
+    state => state.bonusManagementAccount,
+    {initData}
+)
+class Account extends React.Component {
+    componentDidMount() {
+        this.props.initData();
+    }
 
-  render() {
-    return (
-      <div className="Wrap">
-        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-          <Col span={6}>
-          <Card style={gridStyle}>
-            <p className="title">X币余额：</p>
-            <Button type="primary" onClick={() => this.goFlow1()}>提币</Button>
-            <Button type="primary" onClick={() => this.goFlow2()}>资金流水</Button>
-            <p>
-              <span>未结算X币：</span><span>拉新奖励总额：</span>
-            </p>
-            <p>
-              <span>已结算X币：</span><span>交易佣金总额：</span>
-            </p>
-            <p>
-              <span>已提现X币：</span><span>平台特殊奖励总额：</span>
-            </p>
-          </Card>
-          </Col>
-        </Row>
-      </div>
-    );
-  }
+    goFlow1 = (accountNumber) => {
+        this.props.history.push(`/account/account/mentionMoney?accountNumber=${accountNumber}`);
+    }
+
+    goFlow2 = (accountNumber) => {
+        this.props.history.push(`/account/account/ledger?isAccount=1&accountNumber=${accountNumber}`);
+    }
+
+    render() {
+        const unsettledLoan = this.props.unsettledLoan;
+        const symbol = 'X';
+
+        return (
+            <div>
+                <Row >
+                    <Col style={{marginBottom: '20px', width: '500px'}}>
+                        <Card title="X币余额" extra={
+                            moneyFormat(unsettledLoan['accountData'] ? unsettledLoan['accountData'].amount : '0', '', symbol)
+                        }>{<div style={{width: '100%', paddingTop: '10px', paddingBottom: '10px', overflow: 'hidden'}}>
+                            <div style={{width: '210px', float: 'left', textAlign: 'left'}}>
+                                <p>
+                                    <span>未结算奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].unsettleCount : '0', '', symbol)}</span>
+                                </p>
+                                <p>
+                                    <span>已结算奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].settleCount : '0', '', symbol)}</span>
+                                </p>
+                                <p>
+                                    <span>币币交易奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].bbTradeCount : '0', '', symbol)}</span>
+                                </p>
+                                <p>
+                                    <span>场外交易奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].ccTradeCount : '0', '', symbol)}</span>
+                                </p>
+                            </div>
+                            <div style={{width: '240px', float: 'right', textAlign: 'left'}}>
+                                <p>
+                                    <span>不结算奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].nosettleCount : '0', '', symbol)}</span>
+                                </p>
+                                <p>
+                                    <span>拉新奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].regRefCount : '0', '', symbol)}</span>
+                                </p>
+                                <p>
+                                    <span>平台特殊奖励：{moneyFormat(unsettledLoan['statisticsData'] ? unsettledLoan['statisticsData'].platCount : '0', '', symbol)}</span>
+                                </p>
+                            </div>
+                            <div style={{width: '100%', float: 'left', marginTop: '15px', textAlign: 'center'}}>
+                                <Button onClick={() => this.goFlow1(unsettledLoan['accountData'] ? unsettledLoan['accountData'].accountNumber : '')} type="primary">提币</Button>
+                                <Button onClick={() => this.goFlow2(unsettledLoan['accountData'] ? unsettledLoan['accountData'].accountNumber : '')} type="primary" style={{marginLeft: '90px'}}>资金流水</Button>
+                            </div>
+                        </div>}</Card>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
 }
+
+export default Account;

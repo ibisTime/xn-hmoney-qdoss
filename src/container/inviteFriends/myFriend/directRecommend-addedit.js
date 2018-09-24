@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/inviteFriends/directRecommend-addedit';
 import {listWrapper} from 'common/js/build-list';
+import {getQueryString, dateTimeFormat, moneyFormat} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -22,41 +23,60 @@ import {listWrapper} from 'common/js/build-list';
     }
 )
 class RecommendAddedit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.userId = getQueryString('userId', this.props.location.search);
+    }
     render() {
         const fields = [{
-            title: '提成项',
-            field: 'title1',
-            type: 'select',
-            search: true,
-            render: (v, d) => {
-                return d.userName + '+' + d.userphone;
+            field: 'amount',
+            title: '佣金',
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency);
             }
         }, {
-            title: '提成项说明',
-            field: 'title2'
+            field: 'currency',
+            title: '币种'
         }, {
-            title: '提成金额',
-            field: 'title3'
+            field: 'refType',
+            title: '佣金类型'
         }, {
-            title: '发生时间',
-            field: 'title4'
+            field: 'refNote',
+            title: '佣金说明'
         }, {
+            field: 'status',
             title: '状态',
-            field: 'title5',
-            amount: true
-        }, {
-            title: '发生时间',
-            field: '申请时间',
-            type: 'date',
-            rangedate: ['applyDatetimeStart', 'applyDatetimeEnd'],
-            render: (v, d) => {
-                return d.dateTimeFormat;
-            },
+            type: 'select',
+            data: [{
+                key: '0',
+                value: '待结算'
+            }, {
+                key: '1',
+                value: '已结算'
+            }],
+            keyName: 'key',
+            valueName: 'value',
             search: true
+        }, {
+            field: 'settleDatetime',
+            title: '结算时间',
+            type: 'date',
+            rangedate: ['applyDateStart', 'applyDateEnd'],
+            render: dateTimeFormat,
+            search: true
+        }, {
+            field: 'refCode',
+            title: '关联单号'
+        }, {
+            field: 'remark',
+            title: '备注'
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
+            pageCode: 802395,
+            searchParams: {
+                userId: this.userId
+            },
             buttons: [{
                 code: 'goBack',
                 name: '返回',

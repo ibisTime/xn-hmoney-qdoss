@@ -11,6 +11,7 @@ import {
 import {PIC_PREFIX} from 'common/js/config';
 import {getOwnerBtns} from 'api/menu';
 import {getDictList} from 'api/dict';
+import {getCoinList} from 'api/coin';
 import fetch from 'common/js/fetch';
 import locale from './date-locale';
 import cityData from './city';
@@ -38,13 +39,17 @@ export default class ListComponent extends React.Component {
             searchParams: {}
         };
     }
-
+    componentDidMount() {
+        let _this = this;
+        this.setCoinDate();
+    }
     buildList = (options) => {
         this.options = {
             ...this.options,
             ...options
         };
         if (this.first) {
+            this.setCoinDate();
             this.options.pageCode && this.getPageData();
             if (this.options.buttons) {
                 this.addOwnerBtns();
@@ -137,9 +142,14 @@ export default class ListComponent extends React.Component {
         } else if (f.type === 'img') {
             obj.render = (value) => <img src={PIC_PREFIX + value}/>;
         }
-        if (f.amount) {
-            obj.render = (v, d) => <span style={{whiteSpace: 'nowrap'}}>{moneyFormat(v, d)}</span>;
+        if (f.amount || f.coinAmount) {
+            obj.render = (v, d) => <span style={{whiteSpace: 'nowrap'}}>{moneyFormat(v, '', f.coin ? f.coin : '')}</span>;
             this.addRender(f, moneyFormat);
+            if (!f.render) {
+                f.render = (v, d) => {
+                    moneyFormat(v, '', f.coin ? f.coin : '');
+                };
+            }
         }
         if (!obj.render) {
             if (f.render) {
@@ -151,6 +161,30 @@ export default class ListComponent extends React.Component {
         }
 
         callback && callback(obj);
+    }
+
+    // 获取已有币种， 保存币种列表
+    setCoinDate = () => {
+        getCoinList().then(data => {
+            let coinList = [];
+            let coinData = {};
+            data.map(d => {
+                coinData[d.symbol] = {
+                    coin: d.symbol,
+                    unit: '1e' + d.unit,
+                    name: d.cname,
+                    type: d.type,
+                    status: d.status
+                };
+                coinList.push({
+                    key: d.symbol,
+                    value: d.cname
+                });
+            });
+
+            window.sessionStorage.setItem('coinData', JSON.stringify(coinData));
+            window.sessionStorage.setItem('coinList', JSON.stringify(coinList));
+        });
     }
 
     renderSelect(value, f) {
@@ -381,6 +415,13 @@ export default class ListComponent extends React.Component {
 
     getOwnerBtns() {
         getOwnerBtns(this.props.parentCode).then(data => {
+            /*
+            * @hss, 2018/09/18
+            * happyMoney 修改菜单排序
+            * */
+            data.sort((x, y) => {
+                return x['orderNo'].localeCompare(y['orderNo']);
+            });
             this.props.setBtnList(data);
         }).catch(() => {
         });
@@ -413,6 +454,9 @@ export default class ListComponent extends React.Component {
                 ...searchParam,
                 ...this.options.searchParams
             };
+        }
+        if (this.options.beforeSearch) {
+            searchParam = this.options.beforeSearch(searchParam);
         }
         this.props.doFetching();
         const {pagination} = this.props;

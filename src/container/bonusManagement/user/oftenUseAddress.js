@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/bonusManagement/oftenUseAddress';
 import { listWrapper } from 'common/js/build-list';
+import {getUserId} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -24,15 +25,40 @@ import { listWrapper } from 'common/js/build-list';
 class OftenUseAddress extends React.Component {
     render() {
         const fields = [{
-            title: '名称',
-            field: 'title1'
-        }, {
             title: '地址',
-            field: 'title2'
+            field: 'address'
+        }, {
+            title: '币种',
+            field: 'symbol'
+        }, {
+            field: 'label',
+            title: '标签'
+        }, {
+            field: 'isCerti',
+            title: '是否认证账户',
+            type: 'select',
+            data: [{
+                key: '0',
+                value: '否'
+            }, {
+                key: '1',
+                value: '是'
+            }],
+            keyName: 'key',
+            valueName: 'value'
+        }, {
+            field: 'createDatetime',
+            title: '创建时间',
+            type: 'datetime'
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020
+            rowKey: 'id',
+            pageCode: 802015,
+            delete: 802011,
+            searchParams: {
+                userId: getUserId()
+            }
         });
     }
 }

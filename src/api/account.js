@@ -5,14 +5,33 @@ import fetch from 'common/js/fetch';
  * @param start
  * @param limit
  * @param type
+ * @param currency
+ * @param currencyList
+ * @param userId
  */
-export function getPageAccount({ start, limit, type }) {
-  return fetch(802500, {
-    start,
-    limit,
-    type
-  });
+export function getPageAccount(param) {
+    return fetch(802300, {
+        start: 1,
+        limit: 10,
+        ...param
+    });
+}
+/**
+ * 列表查询用户账号
+ * @param userId
+ * @param currency
+ */
+export function getListUserAccount(params) {
+    return fetch(802301, params);
 }
 export function gettotalAcount() {
-  return fetch(630900);
+    return fetch(630900);
+}
+
+/**
+ * 单个渠道商/用户佣金分布统计
+ * @param userId
+ */
+export function getCommissionStatistics(userId) {
+    return fetch(802397, {userId});
 }

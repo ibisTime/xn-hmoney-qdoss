@@ -1,5 +1,6 @@
 import fetch from 'common/js/fetch';
 import { setUser, getUserId, setRoleInfo, getRoleCode, getUserName } from 'common/js/util';
+import {getUserById} from 'api/user';
 
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGOUT = 'LOGOUT';
@@ -67,13 +68,12 @@ export function getUser() {
 }
 
 // 登录
-export function login({ loginName, loginPwd, type = 'P' }) {
+export function login({ loginName, loginPwd }) {
   return dispatch => {
     dispatch(doFetching());
-    fetch(630051, {
+    fetch(805050, {
       loginName,
-      loginPwd,
-      type
+      loginPwd
     }).then(data => {
       setUser(data);
       dispatch(loginSuccess());
@@ -89,7 +89,7 @@ export function login({ loginName, loginPwd, type = 'P' }) {
 }
 
 function _getUser() {
-  return fetch(630067, {
+  return getUserById({
     userId: getUserId()
   });
 }

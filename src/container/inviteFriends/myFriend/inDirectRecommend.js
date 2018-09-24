@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/inviteFriends/inDirectRecommend';
 import {listWrapper} from 'common/js/build-list';
+import {getUserId, moneyFormat} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -24,38 +25,42 @@ import {listWrapper} from 'common/js/build-list';
 class InDirectRecommend extends React.Component {
     render() {
         const fields = [{
-            title: '用户名',
-            field: 'title1',
-            search: true,
-            render: (v, d) => {
-                return d.userName;
-            }
-        }, {
             title: '注册时间',
             field: 'title2'
         }, {
-            title: '推荐人',
-            field: 'title3'
-        },
-        {
             title: '是否认证',
-            field: 'title4',
+            field: 'title3',
             type: 'select',
             search: true
         }, {
             title: '交易总额',
-            field: 'title5'
+            field: 'tradeCount',
+            render: (v, data) => {
+                return moneyFormat(v, '', 'X');
+            }
         }, {
-            title: '佣金计算',
-            field: 'title6',
-            amount: true
+            title: '交易佣金',
+            field: 'tradeAwardCount',
+            render: (v, data) => {
+                return moneyFormat(v, '', 'X');
+            }
+        }, {
+            title: '注册佣金',
+            field: 'regAwardCount',
+            render: (v, data) => {
+                return moneyFormat(v, '', 'X');
+            }
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
+            rowKey: 'userId',
+            pageCode: 802400,
+            searchParams: {
+                userId: getUserId()
+            },
             btnEvent: {
                 commissions: (selectedRowKeys) => {
-                    this.props.history.push(`/myFriend/direct/edit?code=${selectedRowKeys[0]}`);
+                    this.props.history.push(`/myFriend/inDirectRecommend/commissions?userId=${selectedRowKeys[0]}`);
                 }
             }
         });

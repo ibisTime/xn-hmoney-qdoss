@@ -7,8 +7,8 @@ import {
     setPageData,
     restore
 } from '@redux/bonusManagement/loginPwd';
-import { getUserId, showSucMsg, getQueryString } from 'common/js/util';
-import { DetailWrapper } from 'common/js/build-detail';
+import {getUserId, showSucMsg, getQueryString} from 'common/js/util';
+import {DetailWrapper} from 'common/js/build-detail';
 import fetch from 'common/js/fetch';
 
 @DetailWrapper(
@@ -22,60 +22,37 @@ import fetch from 'common/js/fetch';
     }
 )
 class LoginPwd extends React.Component {
-    constructor(props) {
-        super(props);
-        this.code = getQueryString('code', this.props.location.search);
-        this.view = !!getQueryString('v', this.props.location.search);
-        this.state = {
-            mobile: ''
-        };
-    }
-    componentDidMount() {
-        fetch(630067, { userId: getUserId() }).then(data => {
-            this.setState({ mobile: data.mobile });
-        }).catch(() => {});
-    }
     render() {
         const fields = [{
-            title: '手机号',
-            field: 'title',
-            value: this.state.mobile,
-            readonly: true
+            title: '原密码',
+            field: 'oldLoginPwd',
+            type: 'password',
+            required: true,
+            minlength: 6
         }, {
-            title: '验证码',
-            field: 'type',
-            required: true
-        }, {
-            title: '登陆密码',
-            field: 'urgentStatus',
-            required: true
-        }, {
-            title: '确认登陆密码',
-            field: 'urgentStatus1',
-            required: true
+            title: '新密码',
+            field: 'newLoginPwd',
+            type: 'password',
+            required: true,
+            minlength: 6
         }];
         return this.props.buildDetail({
             fields,
-            code: this.code,
-            view: this.view,
-            beforeSubmit: {
-                userId: getUserId()
-            },
             buttons: [{
-              title: '确认',
-              handler: (param) => {
-                param.operator = getUserId();
-                this.props.doFetching();
-                fetch(630051, param).then(() => {
-                  showSucMsg('操作成功');
-                  this.props.cancelFetching();
-                  setTimeout(() => {
-                    this.props.history.go(-1);
-                  }, 1000);
-                }).catch(this.props.cancelFetching);
-              },
-              check: true,
-              type: 'primary'
+                title: '确认',
+                handler: (params) => {
+                    params.userId = getUserId();
+                    this.props.doFetching();
+                    fetch(805064, params).then(() => {
+                        showSucMsg('操作成功');
+                        this.props.cancelFetching();
+                        setTimeout(() => {
+                            location.reload(true);
+                        }, 800);
+                    }).catch(this.props.cancelFetching);
+                },
+                check: true,
+                type: 'primary'
             }]
         });
     }

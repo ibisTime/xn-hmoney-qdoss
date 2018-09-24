@@ -9,6 +9,7 @@ import {
 } from '@redux/bonusManagement/payPwd';
 import {getQueryString, getUserId, showSucMsg} from 'common/js/util';
 import {DetailWrapper} from 'common/js/build-detail';
+import {getUserById} from 'api/user';
 import fetch from 'common/js/fetch';
 
 @DetailWrapper(
@@ -31,7 +32,7 @@ class PayPwd extends React.Component {
         };
     }
     componentDidMount() {
-        fetch(630067, { userId: getUserId() }).then(data => {
+        getUserById({ userId: getUserId() }).then(data => {
             this.setState({ mobile: data.mobile });
         }).catch(() => {});
     }

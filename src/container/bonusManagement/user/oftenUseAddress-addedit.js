@@ -7,7 +7,7 @@ import {
     setPageData,
     restore
 } from '@redux/bonusManagement/oftenUseAddress-addedit';
-import { getQueryString } from 'common/js/util';
+import { getQueryString, getCoinList, getUserId } from 'common/js/util';
 import { DetailWrapper } from 'common/js/build-detail';
 
 @DetailWrapper(
@@ -21,30 +21,45 @@ import { DetailWrapper } from 'common/js/build-detail';
     }
 )
 class addressAddedit extends React.Component {
-    constructor(props) {
-        super(props);
-        this.code = getQueryString('code', this.props.location.search);
-        this.view = !!getQueryString('v', this.props.location.search);
-    }
     render() {
         const fields = [{
-            title: '名称',
-            field: 'title1',
-            search: true,
-            noVisible: true
-        }, {
             title: '地址',
-            field: 'title2',
-            search: true,
-            noVisible: true
+            field: 'address',
+            required: true
+        }, {
+            title: '币种',
+            field: 'symbol',
+            type: 'select',
+            data: getCoinList(),
+            keyName: 'key',
+            valueName: 'value',
+            required: true
+        }, {
+            field: 'label',
+            title: '标签',
+            required: true
+        }, {
+            field: 'isCerti',
+            title: '是否认证账户',
+            type: 'select',
+            data: [{
+                key: '0',
+                value: '否'
+            }, {
+                key: '1',
+                value: '是'
+            }],
+            keyName: 'key',
+            valueName: 'value',
+            required: true
         }];
         return this.props.buildDetail({
             fields,
-            code: this.code,
-            view: this.view,
-            addCode: 630010,
-            editCode: 630012,
-            detailCode: 630017
+            addCode: 802010,
+            beforeSubmit: (params) => {
+                params.userId = getUserId();
+                return params;
+            }
         });
     }
 }

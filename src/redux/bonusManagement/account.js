@@ -1,73 +1,61 @@
-import { commListState } from '../common';
+import {getListUserAccount, getCommissionStatistics} from 'api/account';
+import {getUserId} from 'common/js/util';
+import {SYS_USER} from 'common/js/config';
 
 const PREFIX = 'BONUSMANAGEMENT_ACCOUNT_';
-const SET_BUTTON_LIST = PREFIX + 'SET_BUTTON_LIST';
+const SET_UNSEETTLEDLOAN = PREFIX + 'SET_UNSEETTLEDLOAN';
 const LOADING = PREFIX + 'LOADING';
 const CANCEL_LOADING = PREFIX + 'CANCEL_LOADING';
-const SET_TABLE_DATA = PREFIX + 'SET_TABLE_DATA';
-const SET_SEARCH_DATA = PREFIX + 'SET_SEARCH_DATA';
-const SET_PAGINATION = PREFIX + 'SET_PAGINATION';
-const SET_SEARCH_PARAM = PREFIX + 'SET_SEARCH_PARAM';
 
-const initState = { ...commListState };
+const initState = {
+    unsettledLoan: 0,
+    fetching: true
+};
 
 export function bonusManagementAccount(state = initState, action) {
-  switch(action.type) {
-    case SET_BUTTON_LIST:
-      return {...state, btnList: action.payload};
-    case SET_TABLE_DATA:
-      return {...state, msg: '', tableList: action.payload};
-    case SET_SEARCH_DATA:
-      return {...state, searchData: {...state.searchData, [action.payload.key]: action.payload.data}};
-    case SET_PAGINATION:
-      return {...state, pagination: action.payload};
-    case SET_SEARCH_PARAM:
-      return {...state, searchParam: action.payload};
-    case LOADING:
-      return {...state, fetching: true};
-    case CANCEL_LOADING:
-      return {...state, fetching: false};
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case SET_UNSEETTLEDLOAN:
+            return {...state, unsettledLoan: action.payload};
+        case LOADING:
+            return {...state, fetching: true};
+        case CANCEL_LOADING:
+            return {...state, fetching: false};
+        default:
+            return state;
+    }
 }
 
 // 显示loading
-export function doFetching() {
-  return { type: LOADING };
+function doFetching() {
+    return {type: LOADING};
 }
 
 // 隐藏loading
-export function cancelFetching() {
-  return { type: CANCEL_LOADING };
+function cancelFetching() {
+    return {type: CANCEL_LOADING};
 }
 
-// 设置页面的按钮
-export function setBtnList(data) {
-  return { type: SET_BUTTON_LIST, payload: data };
+// 设置平台盈亏账户
+function setUnsettledLoan(data) {
+    return {type: SET_UNSEETTLEDLOAN, payload: data};
 }
 
-// 设置table的数据
-export function setTableData(data) {
-  return { type: SET_TABLE_DATA, payload: data };
-}
-
-// 设置select框的数据
-export function setSearchData(data) {
-  return { type: SET_SEARCH_DATA, payload: data };
-}
-
-// 设置table的分页信息
-export function setPagination(data) {
-  return { type: SET_PAGINATION, payload: data };
-}
-
-// 设置搜索框的值
-export function setSearchParam(data) {
-  return { type: SET_SEARCH_PARAM, payload: data };
-}
-
-// 清空搜索框的值
-export function clearSearchParam() {
-  return setSearchParam({});
+// 初始化页面数据
+export function initData() {
+    return dispatch => {
+        dispatch(doFetching());
+        Promise.all([
+            getListUserAccount({
+                userId: getUserId(),
+                currency: 'X'
+            }),
+            getCommissionStatistics(getUserId())
+        ]).then(([accData, statData]) => {
+            let param = {
+                'accountData': accData[0],
+                'statisticsData': statData
+            };
+            dispatch(setUnsettledLoan(param));
+        });
+    };
 }

@@ -44,7 +44,7 @@ class GeneralSituation extends React.Component {
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020,
+            pageCode: 802395,
             btnEvent: {
                 anOpenAccountQuery: (selectedRowKeys) => {
                     this.props.history.push(`/bonus/anOpenAccountQuery?code=${selectedRowKeys[0]}`);

@@ -49,7 +49,7 @@ class Assign extends React.Component {
       code: this.code,
       view: this.view,
       editCode: 630057,
-      detailCode: 630067
+      detailCode: 805121
     });
   }
 }

@@ -42,7 +42,7 @@ class PwdReset extends React.Component {
       key: 'userId',
       code: this.code,
       view: this.view,
-      detailCode: 630067,
+      detailCode: 805121,
       editCode: 630055
     });
   }

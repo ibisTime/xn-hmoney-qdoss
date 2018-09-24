@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/bonusManagement/ledger';
 import { listWrapper } from 'common/js/build-list';
+import { getQueryString, moneyFormat, moneyFormatSubtract, getCoinList, showWarnMsg } from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -22,47 +23,86 @@ import { listWrapper } from 'common/js/build-list';
     }
 )
 class Ledger extends React.Component {
+    constructor(props) {
+        super(props);
+        this.accountNumber = getQueryString('accountNumber', this.props.location.search) || '';
+        this.isAccount = !!getQueryString('isAccount', this.props.location.search);
+        this.buttons = [];
+        if (this.isAccount) {
+            this.buttons = [{
+                code: 'goBack',
+                name: '返回',
+                check: false,
+                handler: () => {
+                    this.props.history.go(-1);
+                }
+            }];
+        }
+    }
+
     render() {
         const fields = [{
-            title: '用户',
-            field: 'title1',
-            search: true,
-            render: (v, d) => {
-                return d.userName + '+' + d.userphone;
+            field: 'channelType',
+            title: '渠道',
+            type: 'select',
+            key: 'channel_type',
+            search: true
+        }, {
+            field: 'currency',
+            title: '币种',
+            type: 'select',
+            data: getCoinList(),
+            keyName: 'key',
+            valueName: 'value',
+            search: true
+        }, {
+            field: 'bizType',
+            title: '业务类型',
+            type: 'select',
+            key: 'jour_biz_type_user',
+            search: true
+        }, {
+            field: 'transAmountString',
+            title: '变动金额',
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency);
             }
         }, {
-            title: '账户',
-            field: 'title2'
-        }, {
-            title: '关系',
-            field: 'title',
-            type: 'select3',
-            search: true,
-            noVisible: true
-        }, {
-            title: '业务类型',
-            field: 'title4'
-        }, {
+            field: 'preAmountString',
             title: '变动前金额',
-            field: 'title5'
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency);
+            }
         }, {
-            title: '变动金额',
-            field: 'title6',
-            amount: true
-        }, {
+            field: 'postAmountString',
             title: '变动后金额',
-            field: 'title7',
-            amount: true
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency);
+            }
         }, {
-            title: '变动时间',
-            field: 'title8'
+            field: 'createDatetime',
+            title: '创建时间',
+            type: 'datetime'
         }, {
-            title: '备注',
-            field: 'title9'
+            field: 'status',
+            title: '状态',
+            type: 'select',
+            key: 'jour_status',
+            search: true
+        }, {
+            field: 'bizNote',
+            title: '生成说明'
+        }, {
+            field: 'remark',
+            title: '备注'
         }];
         return this.props.buildList({
             fields,
-            pageCode: 630020
+            pageCode: 802320,
+            searchParams: {
+                accountNumber: this.accountNumber
+            },
+            buttons: this.buttons
         });
     }
 }
