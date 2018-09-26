@@ -10,7 +10,7 @@ import {
     setSearchData
 } from '@redux/bonusManagement/ledger';
 import { listWrapper } from 'common/js/build-list';
-import { getQueryString, moneyFormat, moneyFormatSubtract, getCoinList, showWarnMsg } from 'common/js/util';
+import { getQueryString, moneyFormat, moneyFormatSubtract, getCoinList, showWarnMsg, getUserId } from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -100,7 +100,8 @@ class Ledger extends React.Component {
             fields,
             pageCode: 802320,
             searchParams: {
-                accountNumber: this.accountNumber
+                accountNumber: this.accountNumber,
+                userId: getUserId()
             },
             buttons: this.buttons
         });
