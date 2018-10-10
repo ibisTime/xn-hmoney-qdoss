@@ -19,11 +19,15 @@ li {
   padding: 8px 0;
   width: 200px;
   height: 64px;
-  text-align: center;
+  position: relative;
 }
 
 .ant-layout-header .logo img {
-  height: 100%;
+  width: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   vertical-align: baseline;
 }
 

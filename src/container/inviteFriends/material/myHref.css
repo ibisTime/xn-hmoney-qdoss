@@ -1,7 +1,10 @@
+.text{
+    overflow: hidden;
+}
 .txt {
-    width: 550px;
-    border: none;
-    margin-left: 20px;
+    margin: 0 20px;
+    float: left;
+    line-height: 32px;
 }
 
 .main {

@@ -43,7 +43,7 @@ class PwdReset extends React.Component {
       code: this.code,
       view: this.view,
       detailCode: 805121,
-      editCode: 630055
+      editCode: 805064
     });
   }
 }

@@ -9,7 +9,7 @@ import 'moment/locale/zh-cn';
 import E from 'wangeditor';
 import {getWorkbook} from 'common/js/xlsx-util';
 import {getDictList} from 'api/dict';
-import {getQiniuToken} from 'api/general';
+import {getQiniuToken, sendCaptcha} from 'api/general';
 import {
     formatFile, formatImg, isUndefined, dateTimeFormat, dateFormat, monthFormat,
     tempString, moneyFormat, moneyParse, showSucMsg, showErrMsg, showWarnMsg, getUserName
@@ -85,7 +85,15 @@ export default class DetailComponent extends React.Component {
             // 用于存储类型为treeSelect的数据
             treeData: {},
             // 用于控制全选按钮当前的状态 {indeterminate, checkAll}
-            checkAll: {}
+            checkAll: {},
+            // 验证码倒计时
+            smsCaptchaTimerNum: 60,
+            // 验证码定时器
+            smsCaptchaTimer: null,
+            // 验证码按钮是否禁用
+            smsCaptchaDisabled: false,
+            // 验证码文本
+            smsCaptchaText: '获取验证码'
         };
         // 用于判断类型为o2m的是否是第一次请求
         this.o2mFirst = {};
@@ -156,7 +164,7 @@ export default class DetailComponent extends React.Component {
         };
         if (this.options.useData) {
             this.props.initStates({code: this.options.code, view: this.options.view});
-            this.props.setPageData(this.options.useData);
+            this.props.eData(this.options.useData);
         } else if (this.first) {
             this.options.code && this.options.detailCode && this.getDetailInfo();
             this.props.initStates({code: this.options.code, view: this.options.view});
@@ -254,7 +262,7 @@ export default class DetailComponent extends React.Component {
         values[key] = isUndefined(values[key]) ? this.props.code || '' : values[key];
         this.options.fields.forEach(v => {
             if (v.amount || v.coinAmount) {
-                values[v.field] = moneyParse(values[v.field], v.amountRate, v.coin ? v.coin : '');
+                values[v.field] = moneyParse(values[v.field], v.amountRate, v.coin);
             } else if (v.type === 'citySelect') {
                 let mid = values[v.field].map(a => a === '全部' ? '' : a);
                 v.cFields.forEach((f, i) => {
@@ -654,6 +662,8 @@ export default class DetailComponent extends React.Component {
                 return this.getCheckboxComp(item, initVal, rules, getFieldDecorator);
             case 'treeSelect':
                 return this.getTreeSelectComp(item, initVal, rules, getFieldDecorator);
+            case 'smsCaptcha':
+                return this.getSmsCaptchaComp(item, initVal, rules, getFieldDecorator);
             default:
                 return this.getInputComp(item, initVal, rules, getFieldDecorator);
         }
@@ -858,7 +868,7 @@ export default class DetailComponent extends React.Component {
                                 if (f.render) {
                                     value = f.render(d[f.field], d);
                                 } else if (f.amount || f.coinAmount) {
-                                    value = moneyFormat(d[f.field], '', f.coin ? f.coin : '');
+                                    value = moneyFormat(d[f.field], '', f.coin);
                                 } else if (f.type === 'date' || f.type === 'datetime') {
                                     value = f.type === 'date' ? dateFormat(d[f.field]) : dateTimeFormat(d[f.field]);
                                 } else {
@@ -982,7 +992,7 @@ export default class DetailComponent extends React.Component {
                 }
             }
             if ((f.amount || f.coinAmount) && !f.render) {
-                obj.render = (v, d) => <span style={{whiteSpace: 'nowrap'}}>{moneyFormat(v, d)}</span>;
+                obj.render = (v, d) => <span style={{whiteSpace: 'nowrap'}}>{moneyFormat(v, d, f.coin)}</span>;
             }
             if (!obj.render) {
                 if (f.render) {
@@ -1393,6 +1403,81 @@ export default class DetailComponent extends React.Component {
         );
     }
 
+    getSmsCaptchaComp(item, initVal, rules, getFieldDecorator) {
+        let props = {
+            type: item.type ? item.type : item.hidden ? 'hidden' : 'text'
+        };
+        if (item.onChange) {
+            props.onChange = (e) => {
+                const {value} = e.target;
+                item.onChange(value, this.props);
+            };
+        }
+        return (
+            <FormItem className={item.hidden ? 'hidden' : ''}
+                      key={item.field}
+                      {...this.getInputItemProps()}
+                      label={item.title ? this.getLabel(item) : ''}>
+                {item.title ? '' : <samp>&nbsp;</samp>}
+                {
+                    item.readonly ? <div className="readonly-text">{initVal}</div>
+                        : getFieldDecorator(item.field, {
+                            rules,
+                            initialValue: initVal
+                        })(<Input {...props}/>)
+                }
+                <Button style={{marginTop: 20}}
+                        type='primary'
+                        disabled={this.state.smsCaptchaDisabled}
+                        onClick={() => this.doSendCaptcha(item)}>{this.state.smsCaptchaText}</Button>
+            </FormItem>
+        );
+    }
+
+    doSendCaptcha(item) {
+        this.setState({
+            smsCaptchaDisabled: true
+        });
+        this.props.doFetching();
+        sendCaptcha({
+            bizType: item.bizType,
+            mobile: item.smsCaptchaMobile
+        }).then(() => {
+            this.props.cancelFetching();
+            console.log(1);
+            this.doSendCaptchaSetInterval();
+        }).catch(() => {
+            this.props.cancelFetching();
+            this.setState({
+                smsCaptchaDisabled: false
+            });
+        });
+    }
+
+    doSendCaptchaSetInterval() {
+        this.smsCaptchaTimer = setInterval(() => {
+            if (this.state.smsCaptchaTimerNum === 0) {
+                this.doSendCaptchaClearInterval();
+            } else {
+                this.state.smsCaptchaText = '重新获取（' + this.state.smsCaptchaTimerNum-- + 's）';
+                this.setState({
+                    smsCaptchaTimerNum: this.state.smsCaptchaTimerNum--
+                });
+            }
+        }, 1000);
+    }
+
+    doSendCaptchaClearInterval() {
+        if (this.smsCaptchaTimer) {
+            clearInterval(this.smsCaptchaTimer);
+            this.setState({
+                smsCaptchaDisabled: false,
+                smsCaptchaTimerNum: 60,
+                smsCaptchaText: '获取验证码'
+            });
+        }
+    }
+
     getFileComp(item, initVal, rules, getFieldDecorator, isImg) {
         let initValue = this.getFileInitVal(initVal, isImg);
         return (
@@ -1576,7 +1661,7 @@ export default class DetailComponent extends React.Component {
             if (item.formatter) {
                 result = item.formatter(result, this.props.pageData);
             } else if (item.amount || item.coinAmount) {
-                result = isUndefined(result) ? '' : moneyFormat(result, item.amountRate);
+                result = isUndefined(result) ? '' : moneyFormat(result, item.amountRate, item.coin);
             }
         } catch (e) {
         }

@@ -34,7 +34,7 @@ class OftenUseAddress extends React.Component {
             field: 'label',
             title: '标签'
         }, {
-            field: 'isCerti',
+            field: 'status',
             title: '是否认证账户',
             type: 'select',
             data: [{

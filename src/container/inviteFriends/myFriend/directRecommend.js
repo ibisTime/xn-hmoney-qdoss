@@ -10,7 +10,7 @@ import {
     setSearchData
 } from '@redux/inviteFriends/directRecommend';
 import {listWrapper} from 'common/js/build-list';
-import {getUserId, moneyFormat} from 'common/js/util';
+import {showWarnMsg, getUserId, moneyFormat} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -25,12 +25,26 @@ import {getUserId, moneyFormat} from 'common/js/util';
 class DirectRecommend extends React.Component {
     render() {
         const fields = [{
-            title: '注册时间',
-            field: 'title2'
+            field: 'nickname',
+            title: '昵称',
+            search: true
         }, {
-            title: '是否认证',
-            field: 'title3',
-            type: 'select',
+            field: 'mobile',
+            title: '手机号',
+            search: true
+        }, {
+            field: 'email',
+            title: '邮箱'
+        }, {
+            title: '注册时间',
+            field: 'createDatetime',
+            type: 'datetime'
+        }, {
+            field: 'isRealname',
+            title: '是否实名',
+            render: (v, data) => {
+                return data.realName ? '是' : '否';
+            },
             search: true
         }, {
             title: '交易总额',
@@ -41,15 +55,13 @@ class DirectRecommend extends React.Component {
         }, {
             title: '交易佣金',
             field: 'tradeAwardCount',
-            render: (v, data) => {
-                return moneyFormat(v, '', 'X');
-            }
+            coin: 'X',
+            coinAmount: true
         }, {
             title: '注册佣金',
             field: 'regAwardCount',
-            render: (v, data) => {
-                return moneyFormat(v, '', 'X');
-            }
+            coin: 'X',
+            coinAmount: true
         }];
         return this.props.buildList({
             fields,
@@ -60,7 +72,13 @@ class DirectRecommend extends React.Component {
             },
             btnEvent: {
                 commissions: (selectedRowKeys) => {
-                    this.props.history.push(`/myFriend/directRecommend/commissions?userId=${selectedRowKeys[0]}`);
+                    if (!selectedRowKeys.length) {
+                        showWarnMsg('请选择记录');
+                    } else if (selectedRowKeys.length > 1) {
+                        showWarnMsg('请选择一条记录');
+                    } else {
+                        this.props.history.push(`/myFriend/directRecommend/commissions?userId=${selectedRowKeys[0]}`);
+                    }
                 }
             }
         });

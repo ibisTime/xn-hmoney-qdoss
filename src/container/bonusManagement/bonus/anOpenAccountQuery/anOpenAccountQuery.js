@@ -10,6 +10,7 @@ import {
   setSearchData
 } from '@redux/bonusManagement/anOpenAccountQuery';
 import { listWrapper } from 'common/js/build-list';
+import {getQueryString, getUserId, dateTimeFormat, moneyFormat} from 'common/js/util';
 
 @listWrapper(
   state => ({
@@ -22,34 +23,77 @@ import { listWrapper } from 'common/js/build-list';
   }
 )
 class AnOpenAccountQuery extends React.Component {
+    constructor(props) {
+        super(props);
+        this.isGeneral = !!getQueryString('isGeneral', this.props.location.search);
+        this.buttons = null;
+        if (this.isGeneral) {
+            this.buttons = [{
+                code: 'goBack',
+                name: '返回',
+                check: false,
+                handler: () => {
+                    this.props.history.push(`/bonus/generalSituation`);
+                }
+            }];
+        }
+    }
+
     render() {
         const fields = [{
-            title: '用户',
-            field: '用户',
-            search: true,
-            noVisible: true
+            field: 'count',
+            title: '佣金',
+            coin: 'X',
+            coinAmount: true
         }, {
-            title: '提成项',
-            field: 'title2'
+            field: 'currency',
+            title: '币种'
         }, {
-            title: '提成项说明',
-            field: 'title3'
+            field: 'refType',
+            title: '佣金类型',
+            type: 'select',
+            key: 'award_ref_type'
         }, {
-            title: '提成金额',
-            field: 'title4'
+            field: 'refNote',
+            title: '佣金说明',
+            key: 'award_ref_type'
         }, {
-            title: '发生时间',
-            field: '申请时间',
-            type: 'date',
-            rangedate: ['applyDatetimeStart', 'applyDatetimeEnd'],
-            render: (v, d) => {
-                return d.dateTimeFormat;
-            },
+            field: 'status',
+            title: '状态',
+            type: 'select',
+            data: [{
+                key: '0',
+                value: '待结算'
+            }, {
+                key: '1',
+                value: '已结算'
+            }],
+            keyName: 'key',
+            valueName: 'value',
             search: true
+        }, {
+            field: 'handleDatetime',
+            title: '结算时间',
+            type: 'date',
+            rangedate: ['applyDateStart', 'applyDateEnd'],
+            render: dateTimeFormat,
+            search: true
+        }, {
+            field: 'refCode',
+            title: '关联单号'
+        }, {
+            field: 'remark',
+            title: '备注'
         }];
         return this.props.buildList({
             fields,
-            pageCode: 802395
+            rowKey: 'id',
+            pageCode: '802395',
+            searchParams: {
+                userId: getUserId(),
+                status: '0'
+            },
+            buttons: this.buttons
         });
     }
 }

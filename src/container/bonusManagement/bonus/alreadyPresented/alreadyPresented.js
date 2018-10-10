@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/bonusManagement/alreadyPresented';
 import { listWrapper } from 'common/js/build-list';
+import {getUserId, dateTimeFormat, moneyFormat} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -24,45 +25,87 @@ import { listWrapper } from 'common/js/build-list';
 class AlreadyPresented extends React.Component {
     render() {
         const fields = [{
+            field: 'code',
+            title: '编号',
+            search: true
+        }, {
+            field: 'accountName',
+            title: '账号',
+            type: 'select',
+            render: (v, data) => {
+                if (data.applyUserInfo) {
+                    let tmpl = data.applyUserInfo.mobile ? data.applyUserInfo.mobile : data.applyUserInfo.email;
+                    if (data.applyUserInfo.kind === 'Q') {
+                        return data.applyUserInfo.realName + '(' + tmpl + ')';
+                    }
+                    return data.applyUserInfo.nickname + '(' + tmpl + ')';
+                }
+                return '';
+            }
+        }, {
+            field: 'amount',
+            title: '提现金额',
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency) + data.currency;
+            }
+        }, {
+            field: 'actualAmount',
+            title: '实际到账金额',
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency) + data.currency;
+            }
+        }, {
+            field: 'channelType',
             title: '渠道',
             type: 'select',
-            field: '渠道',
-            search: true,
-            noVisible: true
+            key: 'channel_type',
+            search: true
         }, {
-            title: '业务类型',
-            type: 'select',
-            field: '业务类型',
-            search: true,
-            noVisible: true
+            title: '区块链类型',
+            field: 'payCardInfo'
         }, {
+            title: '提现地址',
+            field: 'payCardNo'
+        }, {
+            field: 'applyDatetime',
+            title: '申请时间',
+            type: 'date',
+            rangedate: ['applyDateStart', 'applyDateEnd'],
+            render: dateTimeFormat,
+            search: true
+        }, {
+            title: '申请说明',
+            field: 'applyNote'
+        }, {
+            field: 'status',
             title: '状态',
             type: 'select',
-            field: '状态',
-            search: true,
-            noVisible: true
+            key: 'withdraw_status',
+            search: true
         }, {
-            title: '提成项',
-            field: 'title2'
+            field: 'approveNote',
+            title: '审核意见'
         }, {
-            title: '提成项说明',
-            field: 'title3'
+            field: 'approveUser',
+            title: '审核人',
+            render: (v, data) => {
+                return data.approveUserInfo ? data.approveUserInfo.loginName : '';
+            }
         }, {
-            title: '提成金额',
-            field: 'title4'
-        }, {
-            title: '发生时间',
-            field: 'title5'
-        }, {
-            title: '结算时间',
-            field: 'title6'
-        }, {
-            title: '领取时间',
-            field: 'title7'
+            field: 'approveDatetime',
+            title: '审核时间',
+            type: 'date',
+            rangedate: ['approveDateStart', 'approveDateEnd'],
+            render: dateTimeFormat,
+            search: true
         }];
         return this.props.buildList({
             fields,
-            pageCode: 802395
+            pageCode: 802355,
+            searchParams: {
+                applyUser: getUserId(),
+                status: 6
+            }
         });
     }
 }

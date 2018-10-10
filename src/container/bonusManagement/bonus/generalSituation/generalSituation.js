@@ -10,6 +10,7 @@ import {
     setSearchData
 } from '@redux/bonusManagement/generalSituation';
 import { listWrapper } from 'common/js/build-list';
+import {getUserId, dateFormat} from 'common/js/util';
 
 @listWrapper(
     state => ({
@@ -24,33 +25,45 @@ import { listWrapper } from 'common/js/build-list';
 class GeneralSituation extends React.Component {
     render() {
         const fields = [{
-            title: '结算日期',
-            field: 'title0',
-            render: (v, d) => {
-                return d.userName + '+' + d.userphone;
+            field: 'settleCount',
+            title: '结算金额',
+            coin: 'X',
+            coinAmount: true
+        }, {
+            field: 'unsettleCount',
+            title: '未结算金额',
+            coin: 'X',
+            coinAmount: true
+        }, {
+            field: 'nosettleCount',
+            title: '不结算金额',
+            coin: 'X',
+            coinAmount: true
+        }, {
+            field: 'nextUnsettleCount',
+            title: '下月未结算数量',
+            coin: 'X',
+            coinAmount: true
+        }, {
+            field: 'date',
+            title: '时间',
+            render: (v, data) => {
+                return dateFormat(data.startDate) + '至' + dateFormat(data.endDate);
             }
-        }, {
-            title: '结算数量',
-            field: 'title1'
-        }, {
-            title: '期间',
-            field: 'title2'
-        }, {
-            title: '结算后当时余额',
-            field: 'title3'
-        }, {
-            title: '未结算数量',
-            field: 'title4'
         }];
         return this.props.buildList({
             fields,
-            pageCode: 802395,
+            rowKey: 'id',
+            pageCode: 802396,
+            searchParams: {
+                userId: getUserId()
+            },
             btnEvent: {
                 anOpenAccountQuery: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/anOpenAccountQuery?code=${selectedRowKeys[0]}`);
+                    this.props.history.push(`/bonus/anOpenAccountQuery?isGeneral=1`);
                 },
                 settleAccount: (selectedRowKeys) => {
-                    this.props.history.push(`/bonus/settledAccounts?code=${selectedRowKeys[0]}`);
+                    this.props.history.push(`/bonus/settledAccounts?isGeneral=1`);
                 }
             }
         });

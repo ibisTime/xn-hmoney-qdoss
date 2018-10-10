@@ -29,17 +29,19 @@ class RecommendAddedit extends React.Component {
     }
     render() {
         const fields = [{
-            field: 'amount',
+            field: 'count',
             title: '佣金',
-            render: (v, data) => {
-                return moneyFormat(v, '', data.currency);
-            }
+            coin: 'X',
+            coinAmount: true
         }, {
             field: 'currency',
             title: '币种'
         }, {
             field: 'refType',
-            title: '佣金类型'
+            title: '佣金类型',
+            type: 'select',
+            key: 'award_ref_type',
+            search: true
         }, {
             field: 'refNote',
             title: '佣金说明'

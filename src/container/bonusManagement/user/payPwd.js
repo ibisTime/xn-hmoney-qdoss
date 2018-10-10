@@ -38,21 +38,21 @@ class PayPwd extends React.Component {
     }
     render() {
         const fields = [{
-            field: 'title',
+            field: 'mobile',
             title: '手机号',
             value: this.state.mobile,
             readonly: true
         }, {
-            field: 'type',
+            field: 'smsCaptcha',
             title: '验证码',
+            type: 'smsCaptcha',
+            bizType: '805066',
+            smsCaptchaMobile: this.state.mobile,
             required: true
         }, {
-            field: 'urgentStatus',
+            field: 'tradePwd',
             title: '支付密码',
-            required: true
-        }, {
-            field: 'urgentStatu',
-            title: '确认支付密码',
+            type: 'password',
             required: true
         }];
         return this.props.buildDetail({
@@ -65,13 +65,13 @@ class PayPwd extends React.Component {
             buttons: [{
                 title: '确认',
                 handler: (param) => {
-                  param.operator = getUserId();
+                  param.userId = getUserId();
                   this.props.doFetching();
-                  fetch(630576, param).then(() => {
+                  fetch(805066, param).then(() => {
                     showSucMsg('操作成功');
                     this.props.cancelFetching();
                     setTimeout(() => {
-                      this.props.history.go(-1);
+                      location.reload(true);
                     }, 1000);
                   }).catch(this.props.cancelFetching);
                 },
