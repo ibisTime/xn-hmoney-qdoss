@@ -25,7 +25,7 @@ class Account extends React.Component {
 
     render() {
         const unsettledLoan = this.props.unsettledLoan;
-        const symbol = 'X';
+        const symbol = 'FMVP';
 
         return (
             <div>

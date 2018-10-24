@@ -27,22 +27,22 @@ class GeneralSituation extends React.Component {
         const fields = [{
             field: 'settleCount',
             title: '结算金额',
-            coin: 'X',
+            coin: 'FMVP',
             coinAmount: true
         }, {
             field: 'unsettleCount',
             title: '未结算金额',
-            coin: 'X',
+            coin: 'FMVP',
             coinAmount: true
         }, {
             field: 'nosettleCount',
             title: '不结算金额',
-            coin: 'X',
+            coin: 'FMVP',
             coinAmount: true
         }, {
             field: 'nextUnsettleCount',
             title: '下月未结算数量',
-            coin: 'X',
+            coin: 'FMVP',
             coinAmount: true
         }, {
             field: 'date',

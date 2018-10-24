@@ -1,8 +1,8 @@
 export const SYSTEM_CODE = 'CD-HPMN000024';
 // 七牛上传地址
-export const UPLOAD_URL = 'http://up-z2.qiniup.com';
+export const UPLOAD_URL = 'http://up-z0.qiniup.com';
 // 七牛图片前缀
-export const PIC_PREFIX = 'http://ounm8iw2d.bkt.clouddn.com/';
+export const PIC_PREFIX = 'http://pgf8juy5p.bkt.clouddn.com/';
 export const PIC_BASEURL_L = '?imageMogr2/auto-orient/thumbnail/!1000x1000r';
 
 // 系统userid
@@ -13,6 +13,9 @@ export const ROOT_MENU_CODE = 'COINSM201700000000000000';
 
 // 系统根菜单编号
 export const USER_ROOT_CODE = 'JS201809041727442529132';
+
+// FMVP 币种
+export const CION_FMVP = 'FMVP';
 
 export const formItemLayout = {
     labelCol: {

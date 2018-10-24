@@ -47,7 +47,7 @@ export function initData() {
         Promise.all([
             getListUserAccount({
                 userId: getUserId(),
-                currency: 'X'
+                currency: 'FMVP'
             }),
             getCommissionStatistics(getUserId())
         ]).then(([accData, statData]) => {

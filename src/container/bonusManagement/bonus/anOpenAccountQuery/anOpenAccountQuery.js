@@ -43,7 +43,7 @@ class AnOpenAccountQuery extends React.Component {
         const fields = [{
             field: 'count',
             title: '佣金',
-            coin: 'X',
+            coin: 'FMVP',
             coinAmount: true
         }, {
             field: 'currency',

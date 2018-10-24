@@ -50,12 +50,12 @@ class InDirectRecommend extends React.Component {
             title: '交易总额',
             field: 'tradeCount',
             render: (v, data) => {
-                return moneyFormat(v, '', 'X');
+                return moneyFormat(v, '', 'FMVP');
             }
         }, {
             title: '交易佣金',
             field: 'tradeAwardCount',
-            coin: 'X',
+            coin: 'FMVP',
             coinAmount: true
         }, {
             title: '注册佣金',

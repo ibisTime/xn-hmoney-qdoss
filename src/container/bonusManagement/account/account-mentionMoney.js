@@ -20,7 +20,7 @@ class AccountMentionMoney extends React.Component {
         this.accountNumber = getQueryString('accountNumber', this.props.location.search);
     }
     render() {
-        const symbole = 'X';
+        const symbole = 'FMVP';
         const fields = [{
             field: 'amount',
             title: '取现金额',
