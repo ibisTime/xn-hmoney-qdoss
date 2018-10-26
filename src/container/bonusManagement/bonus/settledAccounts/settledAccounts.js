@@ -11,6 +11,7 @@ import {
 } from '@redux/bonusManagement/settledAccounts';
 import { listWrapper } from 'common/js/build-list';
 import {getQueryString, getUserId, dateTimeFormat, moneyFormat} from 'common/js/util';
+import {CION_FMVP} from 'common/js/config';
 
 @listWrapper(
     state => ({

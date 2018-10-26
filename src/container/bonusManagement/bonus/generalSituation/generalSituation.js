@@ -11,6 +11,7 @@ import {
 } from '@redux/bonusManagement/generalSituation';
 import { listWrapper } from 'common/js/build-list';
 import {getUserId, dateFormat} from 'common/js/util';
+import {CION_FMVP} from 'common/js/config';
 
 @listWrapper(
     state => ({

@@ -9,6 +9,7 @@ import {
 } from '@redux/bonusManagement/account-mentionMoney';
 import { getQueryString, getUserId, moneyFormat } from 'common/js/util';
 import { DetailWrapper } from 'common/js/build-detail';
+import {CION_FMVP} from 'common/js/config';
 
 @DetailWrapper(
     state => state.bonusManagementAccountMentionMoney,

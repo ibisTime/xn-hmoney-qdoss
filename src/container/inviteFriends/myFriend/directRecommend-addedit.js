@@ -11,6 +11,7 @@ import {
 } from '@redux/inviteFriends/directRecommend-addedit';
 import {listWrapper} from 'common/js/build-list';
 import {getQueryString, dateTimeFormat, moneyFormat} from 'common/js/util';
+import {CION_FMVP} from 'common/js/config';
 
 @listWrapper(
     state => ({

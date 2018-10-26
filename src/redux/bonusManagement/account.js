@@ -1,6 +1,6 @@
 import {getListUserAccount, getCommissionStatistics} from 'api/account';
 import {getUserId} from 'common/js/util';
-import {SYS_USER} from 'common/js/config';
+import {SYS_USER, CION_FMVP} from 'common/js/config';
 
 const PREFIX = 'BONUSMANAGEMENT_ACCOUNT_';
 const SET_UNSEETTLEDLOAN = PREFIX + 'SET_UNSEETTLEDLOAN';

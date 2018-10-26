@@ -11,6 +11,7 @@ import {
 } from '@redux/inviteFriends/inDirectRecommend';
 import {listWrapper} from 'common/js/build-list';
 import {showWarnMsg, getUserId, moneyFormat} from 'common/js/util';
+import {CION_FMVP} from 'common/js/config';
 
 @listWrapper(
     state => ({
