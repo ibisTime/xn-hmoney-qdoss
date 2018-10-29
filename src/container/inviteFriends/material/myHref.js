@@ -23,8 +23,8 @@ export default class SelectSizesDemo extends React.Component {
             getSystemConfigCkey('invite_url')
         ]).then(([data]) => {
             this.setState({
-                name: data.cvalue + '?inviteCode=' + getUserId(),
-                value: '文字链接：轻点链接，轻松赢取百万大礼包。' + data.cvalue + '?inviteCode=' + getUserId()
+                name: data.cvalue + '/user/register.html?inviteCode=' + getUserId(),
+                value: '文字链接：轻点链接，轻松赢取百万大礼包。' + data.cvalue + '/user/register.html?inviteCode=' + getUserId()
             });
         }).catch(() => this.setState({fetching: false}));
     }
