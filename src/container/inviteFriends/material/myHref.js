@@ -3,6 +3,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import html2canvas from 'html2canvas';
 import {Button} from 'antd';
 import { getSystemConfigCkey } from 'api/general';
+import { getUser } from 'api/user';
 import './myHref.css';
 import {getUserId} from 'common/js/util';
 
@@ -14,15 +15,18 @@ export default class SelectSizesDemo extends React.Component {
         this.state = {
             name: '',
             value: '',
+            userName: '',
             copied: false
         };
     }
 
     componentDidMount() {
         Promise.all([
-            getSystemConfigCkey('invite_url')
-        ]).then(([data]) => {
+            getSystemConfigCkey('invite_url'),
+            getUser()
+        ]).then(([data, userData]) => {
             this.setState({
+                userName: userData.realName,
                 name: data.cvalue + '/user/register.html?inviteCode=' + getUserId(),
                 value: '文字链接：轻点链接，轻松赢取百万大礼包。' + data.cvalue + '/user/register.html?inviteCode=' + getUserId()
             });
@@ -64,6 +68,7 @@ export default class SelectSizesDemo extends React.Component {
                     </div>
                     <div className="qr">
                         <div className="bg2" ref={bg1 => this.bg1 = bg1}>
+                            <div className="top">我是{this.state.userName}，邀请您注册FUNMVP，获得奖励。</div>
                             <div className="erweima ewm2" id="erweima">
                                 <QRCode size={115} value={this.state.name}/>
                             </div>

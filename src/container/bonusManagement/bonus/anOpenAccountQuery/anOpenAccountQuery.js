@@ -73,12 +73,16 @@ class AnOpenAccountQuery extends React.Component {
             valueName: 'value',
             search: true
         }, {
-            field: 'handleDatetime',
-            title: '结算时间',
+            field: 'createDatetime',
+            title: '产生时间',
             type: 'date',
-            rangedate: ['applyDateStart', 'applyDateEnd'],
+            rangedate: ['dateStart', 'dateEnd'],
             render: dateTimeFormat,
             search: true
+        }, {
+            field: 'handleDatetime',
+            title: '结算时间',
+            type: 'datetime'
         }, {
             field: 'refCode',
             title: '关联单号'

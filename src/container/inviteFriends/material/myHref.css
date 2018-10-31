@@ -1,6 +1,7 @@
-.text{
+.text {
     overflow: hidden;
 }
+
 .txt {
     margin: 0 20px;
     float: left;
@@ -12,7 +13,7 @@
     text-align: center
 }
 
-.bg1,.bg2 {
+.bg1, .bg2 {
     width: 300px;
     height: 500px;
     background: #ccc;
@@ -21,13 +22,19 @@
 }
 
 .bg1 {
-    background: url(../../../images/邀请好友1.png) center center no-repeat;
+    background: url(../../../images/inviteBg1.png) center center no-repeat;
     background-size: 100% 100%;
 }
 
 .bg2 {
-    background: url(../../../images/邀请有礼-截图@1x.png) center center no-repeat;
+    background: url(../../../images/inviteBg2.png) center center no-repeat;
     background-size: 100% 100%;
+    padding-top: 200px;
+}
+
+.bg2 .top {
+    width: 200px;
+    margin: 0 auto;
 }
 
 .erweima {

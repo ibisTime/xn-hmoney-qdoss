@@ -10,7 +10,7 @@ import {
     setSearchData
 } from '@redux/inviteFriends/directRecommend';
 import {listWrapper} from 'common/js/build-list';
-import {showWarnMsg, getUserId, moneyFormat} from 'common/js/util';
+import {showWarnMsg, getUserId, moneyFormat, dateTimeFormat} from 'common/js/util';
 import {CION_FMVP} from 'common/js/config';
 
 @listWrapper(
@@ -35,17 +35,14 @@ class DirectRecommend extends React.Component {
             search: true
         }, {
             field: 'email',
-            title: '邮箱'
+            title: '邮箱',
+            search: true
         }, {
             title: '注册时间',
             field: 'createDatetime',
-            type: 'datetime'
-        }, {
-            field: 'isRealname',
-            title: '是否实名',
-            render: (v, data) => {
-                return data.realName ? '是' : '否';
-            },
+            type: 'date',
+            rangedate: ['createDatetimeStart', 'createDatetimeEnd'],
+            render: dateTimeFormat,
             search: true
         }, {
             title: '交易总额',

@@ -28,7 +28,9 @@ export function activateUser(userId) {
 
 // 获取用户详情
 export function getUser() {
-  return getUserById(getUserId());
+  return getUserById({
+      userId: getUserId()
+  });
 }
 
 // 获取用户详情
