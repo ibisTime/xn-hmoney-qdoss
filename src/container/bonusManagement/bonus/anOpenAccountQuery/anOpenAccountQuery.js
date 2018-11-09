@@ -70,8 +70,7 @@ class AnOpenAccountQuery extends React.Component {
                 value: '已结算'
             }],
             keyName: 'key',
-            valueName: 'value',
-            search: true
+            valueName: 'value'
         }, {
             field: 'createDatetime',
             title: '产生时间',
