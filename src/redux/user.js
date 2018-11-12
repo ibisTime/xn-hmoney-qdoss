@@ -73,7 +73,8 @@ export function login({ loginName, loginPwd }) {
     dispatch(doFetching());
     fetch(805050, {
       loginName,
-      loginPwd
+      loginPwd,
+      kind: 'Q'
     }).then(data => {
       setUser(data);
       dispatch(loginSuccess());
