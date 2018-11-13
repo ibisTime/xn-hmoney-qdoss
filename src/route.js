@@ -198,7 +198,7 @@ const ROUTES = [
         path: '/bonus/hasSettled',
         component: asyncComponent(() => import('container/bonusManagement/bonus/settledAccounts/settledAccounts'))
     },
-    // 个人中心 -- 支付密码
+    // 个人中心 -- 交易密码
     {
         path: '/user/payPwd',
         component: asyncComponent(() => import('container/bonusManagement/user/payPwd'))

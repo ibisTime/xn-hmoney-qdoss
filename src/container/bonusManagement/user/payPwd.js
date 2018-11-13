@@ -51,7 +51,7 @@ class PayPwd extends React.Component {
             required: true
         }, {
             field: 'tradePwd',
-            title: '支付密码',
+            title: '交易密码',
             type: 'password',
             required: true
         }];
