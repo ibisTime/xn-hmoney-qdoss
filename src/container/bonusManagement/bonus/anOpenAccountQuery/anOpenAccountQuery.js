@@ -44,8 +44,9 @@ class AnOpenAccountQuery extends React.Component {
         const fields = [{
             field: 'count',
             title: '佣金',
-            coin: 'FMVP',
-            coinAmount: true
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency);
+            }
         }, {
             field: 'currency',
             title: '币种'
@@ -56,8 +57,7 @@ class AnOpenAccountQuery extends React.Component {
             key: 'award_ref_type'
         }, {
             field: 'refNote',
-            title: '佣金说明',
-            key: 'award_ref_type'
+            title: '佣金说明'
         }, {
             field: 'status',
             title: '状态',

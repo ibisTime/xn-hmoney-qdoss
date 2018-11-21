@@ -44,8 +44,9 @@ class SettledAccounts extends React.Component {
         const fields = [{
             field: 'count',
             title: '佣金',
-            coin: 'FMVP',
-            coinAmount: true
+            render: (v, data) => {
+                return moneyFormat(v, '', data.currency);
+            }
         }, {
             field: 'currency',
             title: '币种'
