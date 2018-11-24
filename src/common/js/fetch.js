@@ -1,4 +1,4 @@
-import {SYSTEM_CODE} from './config';
+import {SYSTEM_CODE, SYSTEM_NAME} from './config';
 import cookies from 'browser-cookies';
 import axios from 'axios';
 import {clearUser, showErrMsg} from './util';
@@ -12,7 +12,7 @@ export default function fetch(code, param = {}) {
     const data = {
         systemCode: SYSTEM_CODE,
         // companyCode: SYSTEM_CODE,
-        token: cookies.get('token') || '',
+        token: cookies.get(SYSTEM_NAME + 'token') || '',
         // updater: cookies.get('userName'),
         ...param
     };

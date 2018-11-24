@@ -1,7 +1,7 @@
 import cookies from 'browser-cookies';
 import {message, Modal} from 'antd';
 import moment from 'moment';
-import {PIC_PREFIX, DATE_FORMAT, MONTH_FORMAT, DATETIME_FORMAT, USER_ROOT_CODE} from './config';
+import {PIC_PREFIX, DATE_FORMAT, MONTH_FORMAT, DATETIME_FORMAT, USER_ROOT_CODE, SYSTEM_NAME} from './config';
 import './lib/BigDecimal';
 
 /**
@@ -10,41 +10,41 @@ import './lib/BigDecimal';
  * @param token
  */
 export function setUser({userId, token}) {
-    cookies.set('userId', userId);
-    cookies.set('token', token);
+    cookies.set(SYSTEM_NAME + 'userId', userId);
+    cookies.set(SYSTEM_NAME + 'token', token);
 }
 
 // 删除用户登录信息
 export function clearUser() {
-    cookies.erase('userId');
-    cookies.erase('token');
+    cookies.erase(SYSTEM_NAME + 'userId');
+    cookies.erase(SYSTEM_NAME + 'token');
 }
 
 // 获取用户编号
 export function getUserId() {
-    return cookies.get('userId');
+    return cookies.get(SYSTEM_NAME + 'userId');
 }
 
 // 获取公司编号
 export function getCompanyCode() {
-    return cookies.get('companyCode');
+    return cookies.get(SYSTEM_NAME + 'companyCode');
 }
 
 // 设置用户角色信息
 export function setRoleInfo({roleCode, companyCode, loginName}) {
-    cookies.set('roleCode', USER_ROOT_CODE);
-    companyCode && cookies.set('companyCode', companyCode);
-    cookies.set('userName', loginName);
+    cookies.set(SYSTEM_NAME + 'roleCode', USER_ROOT_CODE);
+    companyCode && cookies.set(SYSTEM_NAME + 'companyCode', companyCode);
+    cookies.set(SYSTEM_NAME + 'userName', loginName);
 }
 
 // 获取用户角色编号
 export function getRoleCode() {
-    return cookies.get('roleCode');
+    return cookies.get(SYSTEM_NAME + 'roleCode');
 }
 
 // 获取用户username
 export function getUserName() {
-    return cookies.get('userName');
+    return cookies.get(SYSTEM_NAME + 'userName');
 }
 
 /**

@@ -1,4 +1,6 @@
 export const SYSTEM_CODE = 'CD-HPMN000024';
+// 系统名称 用于存储本项目登陆信息的前缀
+export const SYSTEM_NAME = 'HMQDOSS_';
 // 七牛上传地址
 export const UPLOAD_URL = 'http://up.qiniup.com';
 // 七牛图片前缀
