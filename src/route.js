@@ -131,6 +131,10 @@ const ROUTES = [
     // 账户查询 -- 账户查询
     {
         path: '/account/account',
+        component: asyncComponent(() => import('container/bonusManagement/account/account-list'))
+    },
+    {
+        path: '/account/account/accountSummary',
         component: asyncComponent(() => import('container/bonusManagement/account/account'))
     },
     // 提币

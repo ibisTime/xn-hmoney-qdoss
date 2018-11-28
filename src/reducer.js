@@ -34,6 +34,7 @@ import {inviteFriendsInDirectRecommend} from './redux/inviteFriends/inDirectReco
 import {inviteFriendsDirectRecommendAddedit} from './redux/inviteFriends/directRecommend-addedit';
 
 import {bonusManagementAccount} from './redux/bonusManagement/account';
+import {bonusManagementAccountList} from './redux/bonusManagement/account-list';
 import {bonusManagementAccountMentionMoney} from './redux/bonusManagement/account-mentionMoney';
 
 import {bonusManagementLedger} from './redux/bonusManagement/ledger';
@@ -84,6 +85,7 @@ export default combineReducers({
     inviteFriendsInDirectRecommend,
     inviteFriendsDirectRecommendAddedit,
     bonusManagementAccount,
+    bonusManagementAccountList,
     bonusManagementAccountMentionMoney,
     bonusManagementLedger,
     bonusManagementGeneralSituation,
