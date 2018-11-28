@@ -41,15 +41,15 @@ function setUnsettledLoan(data) {
 }
 
 // 初始化页面数据
-export function initData() {
+export function initData(coin) {
     return dispatch => {
         dispatch(doFetching());
         Promise.all([
             getListUserAccount({
                 userId: getUserId(),
-                currency: 'FMVP'
+                currency: coin
             }),
-            getCommissionStatistics(getUserId())
+            getCommissionStatistics(getUserId(), coin)
         ]).then(([accData, statData]) => {
             let param = {
                 'accountData': accData[0],

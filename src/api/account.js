@@ -32,6 +32,6 @@ export function gettotalAcount() {
  * 单个渠道商/用户佣金分布统计
  * @param userId
  */
-export function getCommissionStatistics(userId) {
-    return fetch(802397, {userId});
+export function getCommissionStatistics(userId, coin) {
+    return fetch(802397, {userId, coin});
 }
